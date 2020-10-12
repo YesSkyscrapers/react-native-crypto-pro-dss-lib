@@ -1,0 +1,415 @@
+{
+    "header": { 
+        "backgroundColor": "#311b92ff",
+        "rightIcon": "",
+        "iconsTintColor": "#ffffffff",
+        "title": {
+            "color": "#ffffffff",
+            "size": 17,
+            "font": ""
+        }
+    },
+    "body": {
+        "backgroundColor": "#ffffffff",
+        "signCell": {
+            "cell": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#000000ff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#191919FF",
+                    "borderWidth": 1.5
+                } 
+            },
+            "textColor": "#000000ff",
+            "moreImage": "",
+            "imageTintColor": "#000000ff",
+            "subMenu": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#434343ff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 3,
+                    "shadowOpacity": 1
+                },
+                "borderStyle": {
+                    "borderColor": "#464646ff",
+                    "borderWidth": 0
+                }
+            },
+            "subMenuText": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            },
+            "buttonRaw": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#bdbdbd00",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#dcdcdcff",
+                    "borderWidth": 0.3
+                },
+                "title": {
+                    "color": "#512da8FF",
+                    "size": 17,
+                    "font": ""
+                }
+            }
+        },
+        "modalView": {
+            "backgroundColor": "#ffffffff",
+            "text": {
+                "color": "#000000ff",
+                "size": 20,
+                "font": ""
+            },
+            "saveChoiceText": {
+                "color": "#000000ff",
+                "size": 13,
+                "font": ""
+            },
+            "switchOnTintColor": "#906ff2ff",
+            "switchThumbTintColor": "#4527a0ff",
+            "shadowStyle": {
+                "shadowColor": "#000000ff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#000000ff",
+                "borderWidth": 0
+            },
+            "confirm": {
+                "backgroundColor": "#4527a0ff",
+                "shadowStyle": {
+                    "shadowColor": "#4527a000",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#4527a0ff",
+                    "borderWidth": 0.3
+                },
+                "title": {
+                    "color": "#ffffffff",
+                    "size": 17,
+                    "font": ""
+                }
+            },
+            "reject": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#bdbdbd00",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#dcdcdcFF",
+                    "borderWidth": 0.3
+                },
+                "title": {
+                    "color": "#512da8ff",
+                    "size": 17,
+                    "font": ""
+                }
+            }
+        },
+        "profileCell": {
+            "cell": {
+                "backgroundColor": "#00000000",
+                "shadowStyle": {
+                    "shadowColor": "#000000ff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#000000ff",
+                    "borderWidth": 0
+                }
+            },
+            "title": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            },
+            "subTitle": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            }
+        },
+        "textField": {
+            "backgroundColor": "#eeeeeeff",
+            "lineColor": "#512da8ff",
+            "shadowStyle": {
+                "shadowColor": "#000000ff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#000000ff",
+                "borderWidth": 0
+            },
+            "title": {
+                "color": "#512da8ff",
+                "size": 15,
+                "font": ""
+            },
+            "text": {
+                "color": "#000000ff",
+                "size": 17,
+                "font": ""
+            }
+        },
+        "errorLabel": {
+            "color": "#c62828ff",
+            "size": 15,
+            "font": ""
+        },
+        "attemptsDescriptionLabel": {
+            "color": "#512da8ff",
+            "size": 15,
+            "font": ""
+        },
+        "hintLabel": {
+            "color": "#000000ff",
+            "size": 11,
+            "font": ""
+        },
+        "operationInfoCell": {
+            "cell": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#000000ff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#000000ff",
+                    "borderWidth": 0
+                }
+            },
+            "header": {
+                "color": "#000000ff",
+                "size": 20,
+                "font": ""
+            },
+            "title": {
+                "color": "#000000ff",
+                "size": 17,
+                "font": ""
+            },
+            "subTitle": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            }
+        },
+        "biometric": {
+            "shadowStyle": {
+                "shadowColor": "#000000ff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#000000ff",
+                "borderWidth": 0
+            },
+            "title": {
+                "color": "#bdbdbdff",
+                "size": 17,
+                "font": ""
+            },
+            "errorTitle": {
+                "color": "#512da8ff",
+                "size": 17,
+                "font": ""
+            },
+            "description": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            },
+            "errorDescription": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            },
+            "cancelButtonTitle": {
+                "color": "#000000ff",
+                "size": 15,
+                "font": ""
+            },
+            "fingerprintIcon": "",
+            "fingerprintIconColor": "#512da8ff",
+            "errorIcon": "",
+            "errorIconColor": "#512da8ff"
+        },
+        "qrReader": {
+            "description": {
+                "color": "#000000ff",
+                "size": 17,
+                "font": ""
+            },
+            "error": {
+                "color": "#ff0000ff",
+                "size": 13,
+                "font": ""
+            },
+            "galleryIcon": "",
+            "imageTintColor": "#000000ff"
+        },
+        "qrViewer": {
+            "color": "#000000ff",
+            "size": 17,
+            "font": ""
+        }
+    },
+    "footer": {
+        "backgroundColor": "#ffffffff",
+        "shadowStyle": {
+            "shadowColor": "#000000ff",
+            "shadowOffsetWidth": 0,
+            "shadowOffsetHeight": 0,
+            "shadowRadius": 0,
+            "shadowOpacity": 0
+        },
+        "borderStyle": {
+            "borderColor": "#000000ff",
+            "borderWidth": 0
+        },
+        "confirm": {
+            "backgroundColor": "#4527a0ff",
+            "shadowStyle": {
+                "shadowColor": "#4527a000",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#4527a0ff",
+                "borderWidth": 0.3
+            },
+            "title": {
+                "color": "#ffffffff",
+                "size": 17,
+                "font": ""
+            }
+        },
+        "reject": {
+            "backgroundColor": "#ffffffff",
+            "shadowStyle": {
+                "shadowColor": "#bdbdbd00",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#dcdcdcff",
+                "borderWidth": 0.3
+            },
+            "title": {
+                "color": "#512da8ff",
+                "size": 17,
+                "font": ""
+            }
+        },
+        "slider": {
+            "minimumTrackTintColor": "#512da8ff",
+            "maximumTrackTintColor": "#bdbdbdff",
+            "thumbTintColor": "#512da8ff"
+        },
+        "pageCounter": {
+            "color": "#000000ff",
+            "size": 17,
+            "font": ""
+        }
+    },
+    "dialogString": {
+        "passwordHeader": "Ввод пароля",
+        "passwordHeaderWithConfirm": "Введите новый пароль",
+        "passwordTitle": "Пароль",
+        "passwordPlaceholder": "Введите пароль",
+        "passwordConfirmTitle": "Подтверждение пароля",
+        "passwordConfirmPlaceholder": "Подтвердите пароль",
+        "passwordEasy": "Пароль должен быть не менее 6 символов",
+        "passwordMedium": "Пароль должен быть не менее 8 символов и содержать строчные и прописные буквы",
+        "passwordStrong": "Пароль должен быть не менее 8 символов и содержать строчные и прописные буквы, цифры",
+        "passwordEmpty": "Поле не может быть пустым",
+        "passwordsNotMatch": "Пароли не совпадают",
+        "incorrectPassword": "Неверный пароль",
+        "passwordEasyHint": "Буквы a-z, A-Z, не менее 6 символов",
+        "passwordMediumyHint": "Буквы a-z, A-Z, не менее 8 символов",
+        "passwordStrongHint": "Цифры 0-9, буквы a-z, A-Z, не менее 8 символов",
+        "passwordTouchIDHint": "Введите пароль для использования в случае ошибки TouchID",
+        "numberOfAttempts": "Количество попыток: ",
+        "numberOfAttemptsExceeded": "Вы превысили число попыток. Попробуйте снова через минуту",
+        "biometricAuthReason": "Аутентификация для доступа к персональным данным",
+        "biometricAuthReasonSave": "Сохранение ключа",
+        "biometricErrorTitle": "Ошибка",
+        "biometricDescription": "Прикоснитесь к сенсору",
+        "biometricErrorDescription": "Не удалось распознать отпечаток. Прикоснитесь еще раз",
+        "incorrectQRCode": "Некорректные данные в QR коде",
+        "qrDescription": "Наведите камеру на QR-код",
+        "settingsTitle": "Доступ к камере отключен",
+        "settingsSubtitle": "Перейти в Настройки для разрешения доступа к камере?",
+        "operationHeader": "Содержимое операции",
+        "printPdfHeader": "Версия для печати (pdf)",
+        "rawPdfHeader": "Оригинал документа (pdf)",
+        "profileHeader": "Профиль пользователя",
+        "confirmedDeviceInfo": "Добавляемое устройство",
+        "moreAboutOfOperation": "Подробнее об операции",
+        "modalViewDescription": "Вы уверены, что хотите отправить запрос 'Отмена'?",
+        "pdfPageNotLoaded": "Не удалось загрузить страницу",
+        "securityHeader": "Вы уверены, что хотите продолжить работу?",
+        "securityNotInstalledLockScreen": "* экран блокировки не установлен",
+        "securityDeviceIsRooted": "* устройство рутовано",
+        "securityKasperskyNotInstalled": "* касперский не установлен",
+        "securityRememberChoice": "Запомнить выбор?",
+        "securityHasOverlayApps": "* список возможных шпионских приложений",
+        "checkStatusHeader": "Проверка статуса устройства",
+        "checkStatusDescription": "Отсканируйте QR-код первым устройством"
+    },
+    "viewButtonTextIndex": {
+        "password": 0,
+        "newPassword": 0,
+        "profile": 0,
+        "checkStatus": 0,
+        "newDevice": 0,
+        "security": 0,
+        "signMT": 0,
+        "signMO": 0,
+        "signMTconfirmation": 0,
+        "biometric": 0,
+        "biometricFailed": 0,
+        "cameraPermissionRequest": 0
+    }
+}

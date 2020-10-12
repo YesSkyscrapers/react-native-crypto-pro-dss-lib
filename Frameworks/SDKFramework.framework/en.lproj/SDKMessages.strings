@@ -1,0 +1,84 @@
+"undefinedError" = "Undefined error";
+"operationCanceledByUser" = "Operation has been cancelled by user";
+
+/// csp functions error message
+"functionFailed" = "CSP: Key function failed";
+"invalidParameters" = "CSP: Input parameters are incorrect";
+"noMemory" = "CSP: No memory";
+"moreDataNeeded" = "CSP: More data needed";
+"invalidBlobHeader" = "CSP: Invalid blob header";
+"invalidPassword" = "CSP: Invalid password";
+"functionNotImplemented" = "CSP: Function not implemented";
+
+/// convertation error message
+"base64EncodedFailed" = "Can't convert base64 String to Data";
+"decodeStruct2String" = "Failed to decode struct in String";
+
+/// authentication error message
+"nameIsExist" = "An authentication vector with the same name already exists";
+"nameIsEmpty" = "Name can't be empty";
+"authVectorNotFound" = "Authentication vector not found";
+"kidNotFound" = "kid not found";
+
+/// key status error message
+"incorrectKeyStatus" = "Incorrect key status";
+"keyExpired" = "Keys are expired";
+
+/// server policy error message
+"selfRegistrationImpossible" = "Self-registration on this server disabled";
+"needKeyActivationCode" = "Need key activation code to the server";
+"biometricKeyProtectionImpossible" = "Key protection policy does not allow using TouchId / FaceId parameter";
+"noPolicyKeyProtectionError" = "The key protection policy does not allow the use of the 'No policy' parameter";
+
+/// user password  encrypting errors messages
+"encryptSetKeyError" = "Failed to set a key";
+"encryptSetVectorError" = "Failed to set an initial vector";
+
+/// system biometric policy error message
+"biometryNotAvailable" = "Biometry is not available on the device";
+"biometryLockout" = "Biometry is locked because there were too many failed attempts";
+"biometryNotEnrolled" = "The user has no enrolled biometric identities";
+"biometricUndefinedError" = "Did not find error code on LAError object";
+
+/// system biometric touchID error message
+"touchIDLockout" = "Touch ID is locked because there were too many failed attempts";
+"touchIDNotAvailable" = "Touch ID is not available on the device";
+"touchIDNotEnrolled" = "The user has no enrolled Touch ID fingers";
+
+/// system biometric authentication error message
+"authenticationFailed" = "The user failed to provide valid credentials";
+"appCancel" = "The app canceled authentication";
+"invalidContext" = "The context was previously invalidated";
+"notInteractive" = "Displaying the required authentication user interface is forbidden";
+"passcodeNotSet" = "A passcode isn’t set on the device";
+"systemCancel" = "The system canceled authentication";
+"userCancel" = "Operation has been cancelled by user";
+"userFallback" = "The user tapped the fallback button in the authentication dialog, but no fallback is available for the authentication policy";
+
+/// read user password from keychain error message
+"invalidData" = "Invalid data";
+
+/// write user password to keychain error message
+"biometricPwdSaveError" = "Saving on password failed for biometric authentication";
+
+/// system qr-code scanner error message
+"avCaptureDeviceError" = "AVCaptureDevice error";
+"deviceError" = "Your device does not support scanning a code from an item. Please use a device with a camera";
+"imageError" = "Expected a dictionary containing an image, but was provided the following: ";
+
+/// qr - code error
+"invalidQrCode" = "Wrong qr code";
+"qrNotContainOperation" = "Qr code does not contain an operation";
+"operationExpired" = "Operation has expired";
+"qrNotLoaded" = "Qr code not loaded into RAM";
+"qrDoesNotMatchConfirmedKid" = "qr code does not match 'confirmedKid'";
+
+/// certificate error messages
+"reasonIncorrect" = "The var 'reason' must be number between 0 and 5 inclusive";
+"cidOrRidFillingError" = "One of var 'cid' or 'rid' need to fill";
+
+/// session
+"sessionFailed" = "Session not opened";
+
+/// security
+"deniedOfUseSDKMethod" = "Denied of use sdk method";

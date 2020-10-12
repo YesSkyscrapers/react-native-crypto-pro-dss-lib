@@ -1,0 +1,36 @@
+"badRequest" = "The request is invalid";
+"invalidInput" = "Missing request body";
+"invalidIdentifier" = "Registered message information not transmitted";
+"wrongOperation" = "Self-registration of myDSS users is not allowed";
+"invalidLogin" = "Login is not specified or has an invalid format";
+"notUniqueLogin" =  "A user with the given login already exists";
+"invalidPhone" = "The received value is not a phone number";
+"notUniquePhone" = "A user with the same phone number already exists";
+"invalidEmail" = "The value received is not an email address";
+"notUniqueEmail" = "A user with the same email address already exists";
+"invalidDeviceFingerprint" = "The deviceFingerprint parameter is not set";
+"notUniqueDeviceFingerprint" = "A user with the same fingerprint of the mobile device already exists";
+"invalidDeviceParams" = "The osType parameter value was not found or the device name / pushAddress was not set";
+"keyAlreadyConfirmed" = "Information about the presence of an authentication key already filled in";
+"invalidKeyId" = "The parameter [child] was not set or the request to add a device with the key identifier [child] was not found";
+"keyNotFound" = "The user does not have a designated authentication current";
+"requestedUserNotFound" = "User not found";
+"invalidCertificate" = "Certificate not found or invalid";
+"invalidCertificateStatus" = "Certificate status is not valid";
+"certificateNotFound" = "Certificate not found";
+"existingDeviceFingerprint" = "This device fingerprint has already been registered";
+"contentRequired" = "Not transmitted by document content";
+
+/// code error: 401
+"userNotFound" = "Could not find user by kid key set identifier";
+"userBlocked" = "User account is locked";
+"invalidAuthenticationScheme" = "Users are not assigned an authentication method through the mobile application";
+"keyExpiredOrNotYetValid" = "Authentication keys have expired or have not yet expired";
+"invalidHmac" = "Invalid HMAC value";
+"invalidLicense" = "There is no valid license for the authentication method through the mobile application";
+"invalidGrant" = "Failed to verify the authentication header (details in the server log)";
+"invalidKinit" = "The installation of already used authentication (kinit) has already been confirmed";
+"invalidKeyState" = "This key is not activated (invalid_key_state)";
+
+/// code error: 500
+"internalError" = "Internal server error";

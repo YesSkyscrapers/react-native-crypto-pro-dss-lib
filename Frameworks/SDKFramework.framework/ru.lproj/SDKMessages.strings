@@ -1,0 +1,86 @@
+///hint: - имеется публичный enum SDKMessagesLocale для манипуляции ошибками sdk
+
+"undefinedError" = "Ошибка неопределена";
+"operationCanceledByUser" = "Операция отменена";
+
+/// csp functions error message
+"functionFailed" = "CSP: Работа с ключами невозможна";
+"invalidParameters" = "CSP: Входные параметры неверны";
+"noMemory" = "CSP: Недостаточно памяти";
+"moreDataNeeded" = "CSP: Требуется больше данных";
+"invalidBlobHeader" = "CSP: Неверный заголовок блоба";
+"invalidPassword" = "CSP: Неверный пароль";
+"functionNotImplemented" = "CSP: Функция не реализована";
+
+/// convertation error message
+"base64EncodedFailed" = "Не удалось преобразовать String в Data";
+"decodeStruct2String" = "Ошибка при десериализации структуры";
+
+/// authentication error message
+"nameIsExist" = "Вектор аутентификации с таким именем уже существует";
+"nameIsEmpty" = "Имя не может быть пустым";
+"authVectorNotFound" = "Вектор аутентификации не найден";
+"kidNotFound" = "kid не найден";
+
+/// key status error message
+"incorrectKeyStatus" = "Некорректный статус ключа";
+"keyExpired" = "Ключ недействительный";
+
+/// server policy error message
+"selfRegistrationImpossible" = "Саморегистрация на сервере запрещена";
+"needKeyActivationCode" = "Требуется код активации";
+"biometricKeyProtectionImpossible" = "Политика защиты ключей не позволяет использовать тип защиты 'TouchId / FaceId'";
+"noPolicyKeyProtectionError" = "Политика защиты ключей не позволяет использовать тип защиты 'No policy'";
+
+/// user password  encrypting errors messages
+"encryptSetKeyError" = "Не удалось задать ключ шифрования";
+"encryptSetVectorError" = "Не удалось задать вектор инициализации для шифрования";
+
+/// system biometric policy error message
+"biometryNotAvailable" = "Биометрическая защита недоступна на устройстве";
+"biometryLockout" = "Биометрия заблокирована, потому что было слишком много неудачных попыток";
+"biometryNotEnrolled" = "У пользователя нет зарегистрированных биометрических идентификаторов";
+"biometricUndefinedError" = "Не удалось найти код ошибки для объекта LAError";
+
+/// system biometric touchID error message
+"touchIDLockout" = "Touch ID заблокирован, потому что было слишком много неудачных попыток";
+"touchIDNotAvailable" = "Touch ID недоступен на устройстве";
+"touchIDNotEnrolled" = "У пользователя нет зарегистрированных пальцев Touch ID";
+
+/// system biometric authentication error message
+"authenticationFailed" = "Пользователь не смог предоставить действительные учетные данные";
+"appCancel" = "Приложение отменило аутентификацию";
+"invalidContext" = "Контекст был ранее признан недействительным";
+"notInteractive" = "Отображение необходимого интерфейса пользователя для аутентификации запрещено";
+"passcodeNotSet" = "Пароль не установлен на устройстве";
+"systemCancel" = "Система отменила аутентификацию";
+"userCancel" = "Операция была отменена пользователем";
+"userFallback" = "Пользователь нажал кнопку возврата в диалоге аутентификации, но для политики аутентификации нет запасного варианта";
+
+/// read user password from keychain error message
+"invalidData" = "Не удалось считать пароль пользователя";
+
+/// write user password to keychain error message
+"biometricPwdSaveError" = "Не удалось сохранить пароль пользователя для биометрической аутентификации";
+
+/// system qr-code scanner error message
+"avCaptureDeviceError" = "Ошибка AVCaptureDevice";
+"deviceError" = "Ваше устройство не поддерживает сканирование кода из элемента. Пожалуйста, используйте устройство с камерой";
+"imageError" = "Ожидается словарь, содержащий изображение, но было предоставлено следующее:";
+
+/// qr - code error
+"invalidQrCode" = "Некорректный qr код";
+"qrNotContainOperation" = "Qr код не содержит операции";
+"operationExpired" = "Операция недействительна";
+"qrNotLoaded" = "qr - код не загружен в оперативную память";
+"qrDoesNotMatchConfirmedKid" = "qr - код не соответствует идентификатору переданному в 'confirmedKid'";
+
+/// certificate error messages
+"reasonIncorrect" = "Переменная 'reason' должна быть числом от 0 до 5 включительно";
+"cidOrRidFillingError" = "Необходимо заполнить один из переменных 'cid' или 'rid'";
+
+/// session
+"sessionFailed" = "Сессия не открыта";
+
+/// security
+"deniedOfUseSDKMethod" = "Отказано в использовании метода SDK";
