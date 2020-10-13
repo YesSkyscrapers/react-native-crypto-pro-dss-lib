@@ -289,6 +289,11 @@
             "color": "#000000ff",
             "size": 17,
             "font": ""
+        },
+        "qrViewerKid": {
+            "color": "#000000ff",
+            "size": 13,
+            "font": ""
         }
     },
     "footer": {
@@ -396,7 +401,8 @@
         "securityRememberChoice": "Запомнить выбор?",
         "securityHasOverlayApps": "* список возможных шпионских приложений",
         "checkStatusHeader": "Проверка статуса устройства",
-        "checkStatusDescription": "Отсканируйте QR-код первым устройством"
+        "checkStatusDescription": "Отсканируйте QR-код первым устройством",
+        "checkStatusKidIdentifier": "Идентификатор ключа"
     },
     "viewButtonTextIndex": {
         "password": 0,
