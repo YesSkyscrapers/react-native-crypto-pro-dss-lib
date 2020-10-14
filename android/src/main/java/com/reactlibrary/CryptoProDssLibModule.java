@@ -3,6 +3,7 @@ package com.reactlibrary;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,10 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.common.LifecycleState;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 
 class InitCallbackHandler implements SdkInitCallback {
     public void onInit(Constants.CSPInitCode var1) {
@@ -74,15 +78,29 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
     @SuppressLint("RestrictedApi")
     @ReactMethod
     public void initViaQr(String base64, Promise promise) {
+        Log.i("nasvyzi", "here");
+        try {
+            String json = null;
+                InputStream is = getCurrentActivity().getAssets().open("certs.json");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                json = new String(buffer, "UTF-8");
+            Log.i("nasvyzi", json);
+        } catch (Exception e) {
+            Log.i("nasvyzi", "errr");
+            Log.i("nasvyzi", e.toString());
+            e.printStackTrace();
+        }
         DssUser dssUser = new DssUser();
         RegisterInfo registerInfo = new RegisterInfo(null, null);
         Auth auth = new Auth();
-        Context context = this.reactContext.getApplicationContext();
-        auth.scanQr(context, base64, new SdkQrCallback(){
+        auth.scanQr(this.reactContext.getCurrentActivity(), base64, new SdkQrCallback(){
 
             @Override
             public void onOperationSuccessful(@NonNull String s) {
-                auth.kinit(context, dssUser, registerInfo, Constants.KeyProtectionType.BIOMETRIC, null, null, new SdkDssUserCallback(){
+                auth.kinit(getReactApplicationContext(), dssUser, registerInfo, Constants.KeyProtectionType.BIOMETRIC, null, null, new SdkDssUserCallback(){
                     @Override
                     public void onOperationSuccessful() {
                         promise.resolve("ok, since ok");

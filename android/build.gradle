@@ -69,7 +69,14 @@ android {
         exclude 'META-INF/Sign.CP' 
         exclude 'META-INF/NOTICE.txt' 
         exclude 'META-INF/LICENSE.txt' 
-    }    
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src/main/assets'
+            }
+        }
+    }
 }
 
 repositories {
