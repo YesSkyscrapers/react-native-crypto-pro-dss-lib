@@ -13,6 +13,7 @@ import com.digt.sdk.*;
 import com.digt.sdk.auth.Auth;
 import com.digt.sdk.auth.models.DssUser;
 import com.digt.sdk.auth.models.RegisterInfo;
+import com.digt.sdk.interfaces.SdkCallback;
 import com.digt.sdk.interfaces.SdkDssUserCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
 import com.digt.sdk.interfaces.SdkQrCallback;
@@ -30,7 +31,9 @@ import com.facebook.react.common.LifecycleState;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class InitCallbackHandler implements SdkInitCallback {
     public void onInit(Constants.CSPInitCode var1) {
@@ -75,24 +78,24 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void initViaQr(String base64, Promise promise) {
-        Log.i("nasvyzi", "here");
+    private String getLastUserKid(){
+        List<DssUser> authList = new ArrayList<DssUser>();
         try {
-            String json = null;
-                InputStream is = getCurrentActivity().getAssets().open("certs.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                json = new String(buffer, "UTF-8");
-            Log.i("nasvyzi", json);
+            authList = Auth.getAuthList(getReactApplicationContext().getCurrentActivity());
         } catch (Exception e) {
-            Log.i("nasvyzi", "errr");
             Log.i("nasvyzi", e.toString());
             e.printStackTrace();
         }
+
+        DssUser lastUser = authList.get(authList.size()-1);
+
+        return lastUser.getKid();
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void initViaQr(String base64, Promise promise) {
+
         DssUser dssUser = new DssUser();
         RegisterInfo registerInfo = new RegisterInfo(null, null);
         Auth auth = new Auth();
@@ -100,10 +103,34 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onOperationSuccessful(@NonNull String s) {
-                auth.kinit(getReactApplicationContext(), dssUser, registerInfo, Constants.KeyProtectionType.BIOMETRIC, null, null, new SdkDssUserCallback(){
+                auth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.BIOMETRIC, null, null, new SdkDssUserCallback(){
                     @Override
                     public void onOperationSuccessful() {
-                        promise.resolve("ok, since ok");
+
+
+                        auth.confirm(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkCallback() {
+                            @Override
+                            public void onOperationSuccessful() {
+
+                                auth.verify(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), false, new SdkCallback() {
+                                    @Override
+                                    public void onOperationSuccessful() {
+                                        promise.resolve("ok, since ok");
+                                    }
+
+                                    @Override
+                                    public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+
+                                        promise.reject("auth verify - failed", s, throwable);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                                promise.reject("auth confirm - failed", s, throwable);
+                            }
+                        });
                     }
 
                     @Override
