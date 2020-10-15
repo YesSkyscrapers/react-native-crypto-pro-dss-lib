@@ -13,10 +13,16 @@ import com.digt.sdk.*;
 import com.digt.sdk.auth.Auth;
 import com.digt.sdk.auth.models.DssUser;
 import com.digt.sdk.auth.models.RegisterInfo;
+import com.digt.sdk.cert.Cert;
+import com.digt.sdk.cert.models.Certificate;
 import com.digt.sdk.interfaces.SdkCallback;
+import com.digt.sdk.interfaces.SdkCertificateListCallback;
 import com.digt.sdk.interfaces.SdkDssUserCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
+import com.digt.sdk.interfaces.SdkPolicyCaParamsCallback;
 import com.digt.sdk.interfaces.SdkQrCallback;
+import com.digt.sdk.policy.Policy;
+import com.digt.sdk.policy.models.CaParams;
 import com.digt.sdk.utils.Constants;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
@@ -74,6 +80,45 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
             @Override
             public void onInit(Constants.CSPInitCode var1) {
                 promise.resolve((var1).getTitle());
+            }
+        });
+    }
+
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void getDocuments(Promise promise) {
+        Policy policy = new Policy();
+        policy.getCaParams(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkPolicyCaParamsCallback() {
+            @Override
+            public void onOperationSuccessful(@NonNull CaParams caParams) {
+                Log.i("nasvyzi", caParams.toString());
+                promise.resolve(caParams);
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                promise.reject("cert getDocuments - failed", s, throwable);
+            }
+        });
+
+    }
+
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void getCerts(Promise promise) {
+        Cert cert = new Cert();
+        cert.getCertList(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkCertificateListCallback() {
+            @Override
+            public void onOperationSuccessful(@NonNull List<Certificate> list) {
+                Log.i("nasvyzi", list.toString());
+                promise.resolve(list);
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                promise.reject("cert getCerts - failed", s, throwable);
             }
         });
     }
