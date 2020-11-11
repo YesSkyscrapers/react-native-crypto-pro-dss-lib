@@ -11,8 +11,7 @@ RCT_EXTERN_METHOD(firstInitialization:
 )
 
 RCT_EXTERN_METHOD(initViaQr:
-                  (NSString *)stringArgument
-                  withNumberArgument:(nonnull NSNumber *)numberArgument
+                  (NSString *)base64
                   withResolver: (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )
