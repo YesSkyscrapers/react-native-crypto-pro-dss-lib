@@ -32,7 +32,14 @@ import com.facebook.react.bridge.ReactMarker;
 import com.facebook.react.bridge.ReactMarkerConstants;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.common.LifecycleState;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,15 +96,19 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getDocuments(Promise promise) {
         Policy policy = new Policy();
+
+                Log.i("nasvyzi", "getDocuments called");
         policy.getCaParams(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkPolicyCaParamsCallback() {
             @Override
             public void onOperationSuccessful(@NonNull CaParams caParams) {
+                Log.i("nasvyzi", "getDocuments onOperationSuccessful");
                 Log.i("nasvyzi", caParams.toString());
                 promise.resolve(caParams);
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", "getDocuments onOperationFailed");
                 promise.reject("cert getDocuments - failed", s, throwable);
             }
         });
@@ -111,14 +122,54 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         Cert cert = new Cert();
         cert.getCertList(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkCertificateListCallback() {
             @Override
+            public String toString() {
+                return "$classname{}";
+            }
+
+            @Override
             public void onOperationSuccessful(@NonNull List<Certificate> list) {
                 Log.i("nasvyzi", list.toString());
-                promise.resolve(list);
+                Log.i("nasvyzi", Boolean.toString(list instanceof List));
+                List<JSONObject> listWithJson =  new ArrayList<>();
+                for (Certificate cert : list)
+                {
+                    try {
+                        listWithJson.add(new JSONObject(cert.toJsonString()));
+                    } catch (JSONException e) {
+                        Log.i("nasvyzi", "wtf error");
+                        Log.i("nasvyzi", e.toString());
+                    }
+                }
+                WritableArray array = Arguments.fromList(listWithJson);
+                promise.resolve(array);
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", s);
                 promise.reject("cert getCerts - failed", s, throwable);
+            }
+        });
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void setCert(Promise promise) {
+        Cert cert = new Cert();
+        cert.setCert(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), "MIIBZzCCARQCAQAwMTEvMC0GA1UEAx4mBCIENQRBBEIEPgQyBEsEOQAgBEEENQRABEIEOAREBDgEOgQwBEIwZjAfBggqhQMHAQEBATATBgcqhQMCAiQABggqhQMHAQECAgNDAARANloMHP9Grsw1sWo5v1I7anD1udOobLll8n7CjVHVSbJJy+d0JHNPBSwb+hdT6HMOXkUO4zV6bBzzuyWC1HOn6qB0MHIGCisGAQQBgjcCAQ4xZDBiMAsGA1UdDwQEAwIE8DAdBgNVHQ4EFgQUt/3gf8LgjUQkXxxexUTvDXl3wVwwNAYJKwYBBAGCNxUHBCcwJQYdKoUDAgIyAQmFuIVGh+PRKoWxhA6H07Ba0CiDkx4CAQECAQAwCgYIKoUDBwEBAwIDQQCzJWWXTfb4xiPIt/5m1OQ46l9ZLxdF2NjYu8K0a9E+//0NxJjPRDZ6xCPRvu2GAUDuNjl1G8kfTJ/7FV8dqbZa", new SdkCallback() {
+            @Override
+            public void onOperationSuccessful() {
+
+                Log.i("nasvyzi", "setCert ok?");
+                promise.resolve("ok, since ok");
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+
+                Log.i("nasvyzi", "setCert failed");
+                Log.i("nasvyzi", s);
+                promise.reject("setCert failed", s, throwable);
             }
         });
     }
@@ -151,21 +202,24 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
                 auth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.BIOMETRIC, null, null, new SdkDssUserCallback(){
                     @Override
                     public void onOperationSuccessful() {
+                Log.i("nasvyzi", "kinit onOperationSuccessful");
 
 
                         auth.confirm(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkCallback() {
                             @Override
                             public void onOperationSuccessful() {
+                                         Log.i("nasvyzi", "auth confirm onOperationSuccessful");
 
                                 auth.verify(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), false, new SdkCallback() {
                                     @Override
                                     public void onOperationSuccessful() {
+                                         Log.i("nasvyzi", "auth verify onOperationSuccessful");
                                         promise.resolve("ok, since ok");
                                     }
 
                                     @Override
                                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-
+ Log.i("nasvyzi", "auth verify onOperationFailed");
                                         promise.reject("auth verify - failed", s, throwable);
                                     }
                                 });
@@ -173,6 +227,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
                             @Override
                             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                                  Log.i("nasvyzi", "auth confirm onOperationFailed");
                                 promise.reject("auth confirm - failed", s, throwable);
                             }
                         });
@@ -180,6 +235,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
                     @Override
                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", "kinit onOperationFailed");
                         promise.reject("kinit - failed", s,throwable);
                     }
                 });
@@ -195,5 +251,68 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
                 promise.reject("scanQr - cancelled", "scanQr - cancelled");
             }
         });
+    }
+
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void tryRelogin(Promise promise) {
+
+        DssUser dssUser = new DssUser();
+        RegisterInfo registerInfo = new RegisterInfo(null, null);
+        Auth auth = new Auth();
+
+
+
+        auth.verify(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), false, new SdkCallback() {
+            @Override
+            public void onOperationSuccessful() {
+                Log.i("nasvyzi", "auth verify onOperationSuccessful");
+                promise.resolve("ok, since ok");
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", "auth verify onOperationFailed");
+                promise.reject("auth verify - failed", s, throwable);
+            }
+        });
+
+
+
+    }
+
+    private JSONObject convertJsonTo(ReadableMap readableMap) {
+        JSONObject object = new JSONObject();
+        ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
+        try {
+            while (iterator.hasNextKey()) {
+                String key = iterator.nextKey();
+                switch (readableMap.getType(key)) {
+                    case Null:
+                        object.put(key, JSONObject.NULL);
+                        break;
+                    case Boolean:
+                        object.put(key, readableMap.getBoolean(key));
+                        break;
+                    case Number:
+                        object.put(key, readableMap.getDouble(key));
+                        break;
+                    case String:
+                        object.put(key, readableMap.getString(key));
+                        break;
+                    case Map:
+                        object.put(key, convertJsonTo(readableMap.getMap(key)));
+                        break;
+                    case Array:
+                        object.put(key, convertJsonTo((ReadableMap) readableMap.getArray(key)));
+                        break;
+                }
+            }
+        }
+        catch (Exception ex) {
+            Log.d("nasvyzi", "convertMapToJson fail: " + ex);
+        }
+        return object;
     }
 }
