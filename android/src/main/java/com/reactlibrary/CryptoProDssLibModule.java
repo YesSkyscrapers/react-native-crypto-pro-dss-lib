@@ -15,14 +15,19 @@ import com.digt.sdk.auth.models.DssUser;
 import com.digt.sdk.auth.models.RegisterInfo;
 import com.digt.sdk.cert.Cert;
 import com.digt.sdk.cert.models.Certificate;
+import com.digt.sdk.docs.Docs;
 import com.digt.sdk.interfaces.SdkCallback;
 import com.digt.sdk.interfaces.SdkCertificateListCallback;
 import com.digt.sdk.interfaces.SdkDssUserCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
 import com.digt.sdk.interfaces.SdkPolicyCaParamsCallback;
+import com.digt.sdk.interfaces.SdkPolicyOperationsInfoCallback;
 import com.digt.sdk.interfaces.SdkQrCallback;
 import com.digt.sdk.policy.Policy;
 import com.digt.sdk.policy.models.CaParams;
+import com.digt.sdk.sign.Sign;
+import com.digt.sdk.sign.models.Operation;
+import com.digt.sdk.sign.models.OperationsInfo;
 import com.digt.sdk.utils.Constants;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
@@ -36,6 +41,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.common.LifecycleState;
 
 import org.json.JSONException;
@@ -47,6 +54,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.reactlibrary.ReactBridgeTools.convertJsonToMap;
 
 class InitCallbackHandler implements SdkInitCallback {
     public void onInit(Constants.CSPInitCode var1) {
@@ -130,23 +139,25 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
             public void onOperationSuccessful(@NonNull List<Certificate> list) {
                 Log.i("nasvyzi", list.toString());
                 Log.i("nasvyzi", Boolean.toString(list instanceof List));
-                List<JSONObject> listWithJson =  new ArrayList<>();
+                List<WritableMap> listWithJson =  new ArrayList<>();
                 for (Certificate cert : list)
                 {
                     try {
-                        listWithJson.add(new JSONObject(cert.toJsonString()));
+
+                        listWithJson.add(convertJsonToMap(new JSONObject(cert.toJsonString())));
                     } catch (JSONException e) {
                         Log.i("nasvyzi", "wtf error");
                         Log.i("nasvyzi", e.toString());
                     }
                 }
-                WritableArray array = Arguments.fromList(listWithJson);
+                Log.i("nasvyzi", Boolean.toString(listWithJson instanceof List));
+                WritableNativeArray array = Arguments.makeNativeArray((List)listWithJson);
                 promise.resolve(array);
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                Log.i("nasvyzi", s);
+
                 promise.reject("cert getCerts - failed", s, throwable);
             }
         });
@@ -154,9 +165,39 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void setCert(Promise promise) {
+    public void getOperations(Promise promise) {
+        Policy policy = new Policy();
+        policy.getOperations(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), null, null, new SdkPolicyOperationsInfoCallback() {
+            @Override
+            public void onOperationSuccessful(@NonNull OperationsInfo operationsInfo) {
+                Log.i("nasvyzi", "getOperations onOperationSuccessful");
+                Log.i("nasvyzi", String.valueOf(operationsInfo));
+                promise.resolve("resolved");
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", "getOperations onOperationFailed");
+                Log.i("nasvyzi", s);
+                promise.reject("cert getCerts - failed", s, throwable);
+            }
+        });
+    }
+
+//    @SuppressLint("RestrictedApi")
+//    @ReactMethod
+//    public void signMT(String base64, Promise promise) {
+//        Sign sign = new Sign();
+//        Operation operation = new Operation();
+//
+//        sign.signMT(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), );
+//    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void setCert(String base64, Promise promise) {
         Cert cert = new Cert();
-        cert.setCert(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), "MIIBZzCCARQCAQAwMTEvMC0GA1UEAx4mBCIENQRBBEIEPgQyBEsEOQAgBEEENQRABEIEOAREBDgEOgQwBEIwZjAfBggqhQMHAQEBATATBgcqhQMCAiQABggqhQMHAQECAgNDAARANloMHP9Grsw1sWo5v1I7anD1udOobLll8n7CjVHVSbJJy+d0JHNPBSwb+hdT6HMOXkUO4zV6bBzzuyWC1HOn6qB0MHIGCisGAQQBgjcCAQ4xZDBiMAsGA1UdDwQEAwIE8DAdBgNVHQ4EFgQUt/3gf8LgjUQkXxxexUTvDXl3wVwwNAYJKwYBBAGCNxUHBCcwJQYdKoUDAgIyAQmFuIVGh+PRKoWxhA6H07Ba0CiDkx4CAQECAQAwCgYIKoUDBwEBAwIDQQCzJWWXTfb4xiPIt/5m1OQ46l9ZLxdF2NjYu8K0a9E+//0NxJjPRDZ6xCPRvu2GAUDuNjl1G8kfTJ/7FV8dqbZa", new SdkCallback() {
+        cert.setCert(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), base64, new SdkCallback() {
             @Override
             public void onOperationSuccessful() {
 
