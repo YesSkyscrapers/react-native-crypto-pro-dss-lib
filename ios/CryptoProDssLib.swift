@@ -4,7 +4,7 @@ import Foundation
 import SDKFramework
 
 @objc(CryptoProDssLib)
-class CryptoProDssLib : NSObject {
+class CryptoProDssLib : UIViewController {
     
     private var jsPromiseResolver: RCTPromiseResolveBlock? = nil;
     private var jsPromiseRejecter: RCTPromiseRejectBlock? = nil;
@@ -27,6 +27,12 @@ class CryptoProDssLib : NSObject {
         
     }
     
+    override func viewDidLoad() {
+            super.viewDidLoad()
+          
+
+        }
+    
     @objc
     func initViaQr(
         _ base64: String?,
@@ -44,9 +50,14 @@ class CryptoProDssLib : NSObject {
                 let auth = try Auth()
                 // шаг 1.
                 let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
+                let root = UIApplication.shared.keyWindow?.rootViewController
+                //root?.present(self, animated: true, completion: nil)
                 
-                auth.scanQR(view: rootViewController!, base64QR: base642) { type, error in
-                // проверка наличия ошибки (если error равен nil, то функция завершилась успешно, иначе - продолжение сценария невозможен)
+            
+                
+                auth.scanQR(view: root!, base64QR: base642) { type, error in
+                    print("scanQR returned")
+                    // проверка наличия ошибки (если error равен nil, то функция завершилась успешно, иначе - продолжение сценария невозможен)
                 // Ожидается, что ‘type’ будет равен строке ‘Kinit’
                     print("base64", base642)
                     print("type", type)
@@ -60,7 +71,7 @@ class CryptoProDssLib : NSObject {
                 }
                 
             } catch {
-                print("error")
+                print("scanQR error")
             // обработка ошибок }
                 if (self.jsPromiseRejecter != nil) {
                     self.jsPromiseRejecter!("fail", "not ok", "smth error")
