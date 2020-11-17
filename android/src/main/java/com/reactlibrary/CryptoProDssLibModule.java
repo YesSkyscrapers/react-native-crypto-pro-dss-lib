@@ -3,10 +3,12 @@ package com.reactlibrary;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import com.digt.sdk.*;
@@ -19,13 +21,16 @@ import com.digt.sdk.docs.Docs;
 import com.digt.sdk.interfaces.SdkCallback;
 import com.digt.sdk.interfaces.SdkCertificateListCallback;
 import com.digt.sdk.interfaces.SdkDssUserCallback;
+import com.digt.sdk.interfaces.SdkGetDocumentCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
+import com.digt.sdk.interfaces.SdkMtOperationWithSuspendCallback;
 import com.digt.sdk.interfaces.SdkPolicyCaParamsCallback;
 import com.digt.sdk.interfaces.SdkPolicyOperationsInfoCallback;
 import com.digt.sdk.interfaces.SdkQrCallback;
 import com.digt.sdk.policy.Policy;
 import com.digt.sdk.policy.models.CaParams;
 import com.digt.sdk.sign.Sign;
+import com.digt.sdk.sign.models.ApproveRequestMT;
 import com.digt.sdk.sign.models.Operation;
 import com.digt.sdk.sign.models.OperationsInfo;
 import com.digt.sdk.utils.Constants;
@@ -53,6 +58,7 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 import static com.reactlibrary.ReactBridgeTools.convertJsonToMap;
@@ -171,27 +177,118 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
             @Override
             public void onOperationSuccessful(@NonNull OperationsInfo operationsInfo) {
                 Log.i("nasvyzi", "getOperations onOperationSuccessful");
-                Log.i("nasvyzi", String.valueOf(operationsInfo));
-                promise.resolve("resolved");
+                List<WritableMap> listWithJson =  new ArrayList<>();
+                for (Operation operation : operationsInfo.getOperations())
+                {
+                    try {
+
+                        listWithJson.add(convertJsonToMap(new JSONObject(operation.toJsonString())));
+                    } catch (JSONException e) {
+                        Log.i("nasvyzi", "wtf error");
+                        Log.i("nasvyzi", e.toString());
+                    }
+                }
+                WritableNativeArray array = Arguments.makeNativeArray((List)listWithJson);
+
+
+                promise.resolve(array);
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
                 Log.i("nasvyzi", "getOperations onOperationFailed");
-                Log.i("nasvyzi", s);
+               // Log.i("nasvyzi", s);
                 promise.reject("cert getCerts - failed", s, throwable);
             }
         });
     }
 
-//    @SuppressLint("RestrictedApi")
-//    @ReactMethod
-//    public void signMT(String base64, Promise promise) {
-//        Sign sign = new Sign();
-//        Operation operation = new Operation();
-//
-//        sign.signMT(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), );
-//    }
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void downloadDocument(String id, Promise promise) {
+        Docs docs = new Docs();
+        docs.downloadDocument(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), id, new SdkGetDocumentCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onOperationSuccessful(byte[] bytes) {
+
+                // readable string that encoded in base64, easy transfer as a string
+
+                // byte[] to base64 string
+                String s = Base64.getEncoder().encodeToString(bytes);
+
+                // base64 string to byte[]
+                byte[] decode = Base64.getDecoder().decode(s);
+
+
+                promise.resolve(Arguments.makeNativeArray(bytes));
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+
+                Log.i("nasvyzi", "downloadDocument onOperationFailed");
+               // Log.i("nasvyzi", s);
+                promise.reject("downloadDocument - failed", s, throwable);
+            }
+        });
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void signMT(String transactionId, Promise promise) {
+        Sign sign = new Sign();
+
+        Policy policy = new Policy();
+        policy.getOperations(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), null, null, new SdkPolicyOperationsInfoCallback() {
+            @Override
+            public void onOperationSuccessful(@NonNull OperationsInfo operationsInfo) {
+                Log.i("nasvyzi", "getOperations onOperationSuccessful");
+
+                Operation _operation = null;
+
+                for (Operation operation : operationsInfo.getOperations())
+                {
+                    Log.i("nasvyzi", operation.getTransactionId() +" ili " + transactionId);
+
+                    if (operation.getTransactionId().equals(transactionId)){
+                        Log.i("nasvyzi", "itrs trigger");
+                        _operation = operation;
+                    }
+                }
+
+                Log.i("nasvyzi", _operation.toString());
+
+                sign.signMT(getReactApplicationContext().getCurrentActivity(), getLastUserKid(),_operation, false,true,false, new SdkMtOperationWithSuspendCallback() {
+                    @Override
+                    public void onOperationSuccessful() {
+
+                        promise.resolve("all ok");
+                    }
+
+                    @Override
+                    public void onOperationSuspendedConfirm(@NonNull ApproveRequestMT approveRequestMT) {
+                        promise.resolve("suspended");
+                    }
+
+                    @Override
+                    public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                        Log.i("nasvyzi", "signMT onOperationFailed");
+                        Log.i("nasvyzi", s);
+                        promise.reject("signMT - failed", s, throwable);
+                    }
+                });
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", "signMT getOperations onOperationFailed");
+                //Log.i("nasvyzi", s);
+                promise.reject("signMT - failed", s, throwable);
+            }
+        });
+
+    }
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
