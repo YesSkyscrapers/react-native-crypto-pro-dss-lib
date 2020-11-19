@@ -25,10 +25,12 @@ import com.digt.sdk.interfaces.SdkGetDocumentCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
 import com.digt.sdk.interfaces.SdkMtOperationWithSuspendCallback;
 import com.digt.sdk.interfaces.SdkPolicyCaParamsCallback;
+import com.digt.sdk.interfaces.SdkPolicyOperationHistoryCallback;
 import com.digt.sdk.interfaces.SdkPolicyOperationsInfoCallback;
 import com.digt.sdk.interfaces.SdkQrCallback;
 import com.digt.sdk.policy.Policy;
 import com.digt.sdk.policy.models.CaParams;
+import com.digt.sdk.policy.models.OperationHistory;
 import com.digt.sdk.sign.Sign;
 import com.digt.sdk.sign.models.ApproveRequestMT;
 import com.digt.sdk.sign.models.Operation;
@@ -165,6 +167,30 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
 
                 promise.reject("cert getCerts - failed", s, throwable);
+            }
+        });
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void getHistoryOperations(Promise promise) {
+
+      //  Integer count = Integer.parseInt((_count));
+
+        Policy policy = new Policy();
+        policy.getHistoryOperations(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), null, null, new ArrayList<>(), new SdkPolicyOperationHistoryCallback() {
+            @Override
+            public void onOperationSuccessful(@NonNull OperationHistory operationHistory) {
+
+                Log.i("nasvyzi", operationHistory.toJsonString());
+                promise.resolve("since ok");
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                Log.i("nasvyzi", "getHistoryOperations onOperationFailed");
+                // Log.i("nasvyzi", s);
+                promise.reject("getHistoryOperations onOperationFailed - failed", s, throwable);
             }
         });
     }
