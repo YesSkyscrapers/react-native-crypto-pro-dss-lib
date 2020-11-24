@@ -2,6 +2,7 @@
 
 import Foundation
 import SDKFramework
+import UIKit
 
 @objc(CryptoProDssLib)
 class CryptoProDssLib : UIViewController {
@@ -33,6 +34,22 @@ class CryptoProDssLib : UIViewController {
 
         }
     
+    func getLastUserKid() -> String? {
+            
+        var authList = [] as [DSSUser];
+            do {
+                authList = try Auth.getAuthList();
+                print(authList, authList.count)
+                let lastUser = authList[authList.count-1];
+                return lastUser.kid;
+            } catch {
+                
+            }
+
+
+        return nil;
+    }
+    
     @objc
     func initViaQr(
         _ base64: String?,
@@ -47,38 +64,110 @@ class CryptoProDssLib : UIViewController {
         DispatchQueue.main.async {
                 
             do {
+                
+                
+                
+                
                 let auth = try Auth()
                 // шаг 1.
                 let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
-                let root = UIApplication.shared.keyWindow?.rootViewController
-                //root?.present(self, animated: true, completion: nil)
+//                let root = UIApplication.shared.keyWindow?.rootViewController
+//                //root?.present(self, animated: true, completion: nil)
+//
+//                if let str = rootViewController as? UINavigationController {
+//                    print("isnavigator")
+//                } else {
+//                    print("isnot navigator")
+//                }
+//
+//                let navigator = rootViewController as! UINavigationController
+//                let vcw = UIViewController();
+//                let subView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200));
+//                subView.backgroundColor = UIColor.red
+//                vcw.view.addSubview(subView)
+//
+                //navigator.pushViewController(vcw, animated: true)
                 
-            
+                guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
+                     reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
+                     return
+                }
+                let user = DSSUser();
+                let registerInfo = RegisterInfo();
                 
-                auth.scanQR(view: root!, base64QR: base642) { type, error in
-                    print("scanQR returned")
-                    // проверка наличия ошибки (если error равен nil, то функция завершилась успешно, иначе - продолжение сценария невозможен)
-                // Ожидается, что ‘type’ будет равен строке ‘Kinit’
-                    print("base64", base642)
-                    print("type", type)
-                    print("error",error)
-                    
-                    if (self.jsPromiseResolver != nil) {
-                        self.jsPromiseResolver!(String(format: "since ok"))
+                auth.scanQR(view: rootVC, base64QR: base64)  { type, error in
+                    print("scanqr", type, error)
+                    if error != nil {
+                        if (self.jsPromiseRejecter != nil) {
+                            self.jsPromiseRejecter!("fail", "not ok", error)
+                        }
                     }
-                       
-                    
+               
+                    auth.kinit(view: rootVC, dssUser: user, registerInfo: registerInfo, keyProtectionType: SDKFramework.ProtectionType.BIOMETRIC, activationCode: nil, password: nil) { error in
+                        print("kinit", error)
+                        if error != nil {
+                            if (self.jsPromiseRejecter != nil) {
+                                self.jsPromiseRejecter!("fail", "not ok", error)
+                            }
+                        }
+                        
+                        auth.confirm(view: rootVC, kid: self.getLastUserKid()!) { error in
+                            print("confirm", error)
+                            
+                            if error != nil {
+                                if (self.jsPromiseRejecter != nil) {
+                                    self.jsPromiseRejecter!("fail", "not ok", error)
+                                }
+                            }
+                            
+                            auth.verify(view: rootVC, kid: self.getLastUserKid()!, silent: false) { error in
+                                print("verify", error)
+                                
+                                if error != nil {
+                                    if (self.jsPromiseRejecter != nil) {
+                                        self.jsPromiseRejecter!("fail", "not ok", error)
+                                    }
+                                }
+                                
+                                if (self.jsPromiseResolver != nil) {
+                                    self.jsPromiseResolver!(String(format: "since ok"))
+                                }
+                            }
+                        }
+                    }
                 }
                 
             } catch {
                 print("scanQR error")
-            // обработка ошибок }
+                // обработка ошибок }
                 if (self.jsPromiseRejecter != nil) {
                     self.jsPromiseRejecter!("fail", "not ok", "smth error")
                 }
                    
             }
                   
+        }
+    }
+}
+
+
+public extension UIWindow {
+    var visibleViewController: UIViewController? {
+        self.window?.makeKeyAndVisible()
+        return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
+    }
+    
+    static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
+        if let nc = vc as? UINavigationController {
+            return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
+        } else if let tc = vc as? UITabBarController {
+            return UIWindow.getVisibleViewControllerFrom(tc.selectedViewController)
+        } else {
+            if let pvc = vc?.presentedViewController {
+                return UIWindow.getVisibleViewControllerFrom(pvc)
+            } else {
+                return vc
+            }
         }
     }
 }

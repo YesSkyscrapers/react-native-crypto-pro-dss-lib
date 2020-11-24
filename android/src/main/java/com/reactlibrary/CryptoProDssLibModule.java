@@ -3,7 +3,10 @@ package com.reactlibrary;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.os.FileUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -55,9 +58,14 @@ import com.facebook.react.common.LifecycleState;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -107,6 +115,49 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
             }
         });
     }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void updateStyles(Promise promise) throws URISyntaxException {
+        Policy policy = new Policy();
+
+        URI url = null;
+        try {
+            InputStream streamStyles = getReactApplicationContext().getAssets().open("SDKStyles.json");
+
+            try {
+                File file = new File(Environment.getExternalStorageDirectory(), "SDKStyles.json");
+                try (OutputStream output = new FileOutputStream(file)) {
+                    byte[] buffer = new byte[streamStyles.available()];
+                    streamStyles.read(buffer);
+
+                    output.write(buffer);
+
+                    output.flush();
+                    Log.i("nasvyzi", file.getAbsolutePath());
+
+                    url = new URI(file.getAbsolutePath());
+                }
+            } finally {
+                streamStyles.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Log.i("nasvyzi", "FIL URL");
+        //Log.i("nasvyzi", getReactApplicationContext().getClass().getResource("SDKStyles.json").toString());
+
+        try {
+            policy.setPersonalisation(url);
+        } catch (IOException e) {
+            Log.i("nasvyzi", "FIL UR ERROR L");
+            Log.i("nasvyzi", e.toString());
+            e.printStackTrace();
+        }
+    }
+
 
 
     @SuppressLint("RestrictedApi")

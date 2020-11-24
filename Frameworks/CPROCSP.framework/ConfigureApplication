@@ -1,0 +1,8 @@
+#!/bin/bash
+BUNDLE_ID=`plutil -convert xml1 -o - "$CONFIGURATION_BUILD_DIR/$INFOPLIST_PATH"|tr -d '\n'|sed 's%^.*CFBundleIdentifier[[:blank:]]*</key>[[:blank:]]*<string>\([^<>]*\)</string>.*$%\1%'`
+echo "BUNDLE_ID=$BUNDLE_ID"
+PROGRAM_FILE="$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH"
+echo "PROGRAM_FILE=$PROGRAM_FILE"
+PARAM="\"$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH\" program_control_sum"
+PROGRAM_CHECKSUM=`dirname "$0"`/program_checksum.sh 
+eval "\"$PROGRAM_CHECKSUM\" $PARAM"
