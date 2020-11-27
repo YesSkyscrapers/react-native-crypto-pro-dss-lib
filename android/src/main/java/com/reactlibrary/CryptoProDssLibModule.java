@@ -116,6 +116,26 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         });
     }
 
+    public URI getUriFromAssets(String pathResource) throws IOException {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+
+        inputStream = getReactApplicationContext().getAssets().open(pathResource);
+        File tempFile = File.createTempFile("tmp", ".bin");
+        byte[] fileReader = new byte[4096];
+        outputStream = new FileOutputStream(tempFile);
+
+        while (true){
+            int read = inputStream.read(fileReader);
+            if (read == -1){
+                break;
+            }
+            outputStream.write(fileReader, 0, read);
+        }
+        outputStream.flush();
+        return tempFile.toURI();
+    }
+
     @SuppressLint("RestrictedApi")
     @ReactMethod
     public void updateStyles(Promise promise) throws URISyntaxException {
@@ -123,37 +143,12 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
         URI url = null;
         try {
-            InputStream streamStyles = getReactApplicationContext().getAssets().open("SDKStyles.json");
-
-            try {
-                File file = new File(Environment.getExternalStorageDirectory(), "SDKStyles.json");
-                try (OutputStream output = new FileOutputStream(file)) {
-                    byte[] buffer = new byte[streamStyles.available()];
-                    streamStyles.read(buffer);
-
-                    output.write(buffer);
-
-                    output.flush();
-                    Log.i("nasvyzi", file.getAbsolutePath());
-
-                    url = new URI(file.getAbsolutePath());
-                }
-            } finally {
-                streamStyles.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        Log.i("nasvyzi", "FIL URL");
-        //Log.i("nasvyzi", getReactApplicationContext().getClass().getResource("SDKStyles.json").toString());
-
-        try {
+            url = getUriFromAssets("SDKStyles.json");
             policy.setPersonalisation(url);
+            Log.i("nasvyzi", "updateStyles success");
         } catch (IOException e) {
-            Log.i("nasvyzi", "FIL UR ERROR L");
-            Log.i("nasvyzi", e.toString());
+            Log.i("nasvyzi", "updateStyles failed");
+            Log.i("nasvyzi", e.getLocalizedMessage());
             e.printStackTrace();
         }
     }
