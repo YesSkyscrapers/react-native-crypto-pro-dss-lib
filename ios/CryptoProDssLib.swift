@@ -19,10 +19,24 @@ class CryptoProDssLib : UIViewController {
         jsPromiseRejecter = reject;
         
         DispatchQueue.main.async {
-                 
-            if (self.jsPromiseRejecter != nil) {
-                self.jsPromiseRejecter!("Unimplemented", "IOS doesnt require first initialization", nil)
+            guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
+                 reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
+                 return
             }
+            
+            
+            let cpd = CryptoProDss();
+            cpd._init(view: rootVC) { (code) in
+                
+                print(code)
+                
+                if (self.jsPromiseResolver != nil) {
+                    self.jsPromiseResolver!(String(format: "since ok"))
+                }
+            }
+            
+            
+          
                        
        }
         
