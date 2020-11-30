@@ -26,9 +26,43 @@ class CryptoProDssLib : UIViewController {
             
             
             let cpd = CryptoProDss();
-            cpd._init(view: rootVC) { (code) in
+            cpd._init(view: rootVC) { code in
                 
                 print(code)
+                
+                if (self.jsPromiseResolver != nil) {
+                    self.jsPromiseResolver!(String(format: "since ok"))
+                }
+            }
+            
+            
+          
+                       
+       }
+        
+    }
+    
+    @objc
+    func getOperations(
+        _ resolve: @escaping RCTPromiseResolveBlock,
+        withRejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        
+        jsPromiseResolver = resolve;
+        jsPromiseRejecter = reject;
+        
+        DispatchQueue.main.async {
+            guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
+                 reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
+                 return
+            }
+            
+            
+            let policy = Policy();
+            policy.getOperations(view: rootVC, kid: self.getLastUserKid()!, type: nil, opId: nil){ operationsInfo,error  in
+                
+                print("getOperations result")
+                print(operationsInfo)
+                print(error)
                 
                 if (self.jsPromiseResolver != nil) {
                     self.jsPromiseResolver!(String(format: "since ok"))
@@ -83,24 +117,10 @@ class CryptoProDssLib : UIViewController {
                 
                 
                 let auth = try Auth()
-                // шаг 1.
+          
+                
                 let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
-//                let root = UIApplication.shared.keyWindow?.rootViewController
-//                //root?.present(self, animated: true, completion: nil)
-//
-//                if let str = rootViewController as? UINavigationController {
-//                    print("isnavigator")
-//                } else {
-//                    print("isnot navigator")
-//                }
-//
-//                let navigator = rootViewController as! UINavigationController
-//                let vcw = UIViewController();
-//                let subView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200));
-//                subView.backgroundColor = UIColor.red
-//                vcw.view.addSubview(subView)
-//
-                //navigator.pushViewController(vcw, animated: true)
+
                 
                 guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
                      reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
