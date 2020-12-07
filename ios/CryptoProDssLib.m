@@ -21,4 +21,15 @@ RCT_EXTERN_METHOD(initViaQr:
                   withRejecter: (RCTPromiseRejectBlock)reject
 )
 
+RCT_EXTERN_METHOD(signMT:
+                  (NSString *)transactionId
+                  withResolver: (RCTPromiseResolveBlock)resolve
+                  withRejecter: (RCTPromiseRejectBlock)reject
+)
+
+RCT_EXTERN_METHOD(updateStyles:
+                  (RCTPromiseResolveBlock)resolve
+                  withRejecter: (RCTPromiseRejectBlock)reject
+)
+
 @end

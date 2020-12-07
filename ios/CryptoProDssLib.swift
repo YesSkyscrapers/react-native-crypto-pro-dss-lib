@@ -4,6 +4,13 @@ import Foundation
 import SDKFramework
 import UIKit
 
+struct DictionaryEncoder {
+    static func encode<T>(_ value: T) throws -> [String: Any] where T: Encodable {
+        let jsonData = try JSONEncoder().encode(value)
+        return try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
+    }
+}
+
 @objc(CryptoProDssLib)
 class CryptoProDssLib : UIViewController {
     
@@ -60,13 +67,70 @@ class CryptoProDssLib : UIViewController {
             let policy = Policy();
             policy.getOperations(view: rootVC, kid: self.getLastUserKid()!, type: nil, opId: nil){ operationsInfo,error  in
                 
-                print("getOperations result")
-                print(operationsInfo)
-                print(error)
+                var operations = [] as [Any];
+                
+                
+                for _operation in operationsInfo?.operations ?? [] {
+                    operations.append(try! DictionaryEncoder.encode(_operation))
+                }
+                
+                    print(operations)
+                
+                
+               
                 
                 if (self.jsPromiseResolver != nil) {
-                    self.jsPromiseResolver!(String(format: "since ok"))
+                    self.jsPromiseResolver!(operations)
                 }
+            }
+            
+            
+          
+                       
+       }
+        
+    }
+    
+    @objc
+    func signMT(
+        _ transactionId: String,
+        withResolver resolve: @escaping RCTPromiseResolveBlock,
+        withRejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        
+        jsPromiseResolver = resolve;
+        jsPromiseRejecter = reject;
+        
+        DispatchQueue.main.async {
+            guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
+                 reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
+                 return
+            }
+            
+            
+            let policy = Policy();
+            let sign = Sign();
+            policy.getOperations(view: rootVC, kid: self.getLastUserKid()!, type: nil, opId: nil){ operationsInfo,error  in
+                
+                var operation = nil as SDKFramework.Operation?;
+                
+                
+                for _operation in operationsInfo?.operations ?? [] {
+                    if (operation?.transactionId == _operation.transactionId) {
+                        operation = _operation;
+                    }
+                }
+                
+                sign.signMT(view: rootVC, kid: self.getLastUserKid()!, operation: operation, enableMultiSelection: false, inmediateSendConfirm: true, silent: false){ approveRequestMT,error  in
+                    
+                    if (self.jsPromiseResolver != nil) {
+                        self.jsPromiseResolver!("all ok")
+                    }
+                }
+                
+                
+               
+                
+               
             }
             
             
@@ -96,6 +160,37 @@ class CryptoProDssLib : UIViewController {
 
 
         return nil;
+    }
+    
+    @objc
+    func updateStyles(
+        _ resolve: @escaping RCTPromiseResolveBlock,
+        withRejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        
+        jsPromiseResolver = resolve;
+        jsPromiseRejecter = reject;
+        
+        DispatchQueue.main.async {
+            
+            
+            let policy = Policy();
+         
+            do {
+                try policy.setPersonalisation(url: Bundle.main.url(forResource: "SDKStyles", withExtension:"json")!)
+                
+                if (self.jsPromiseResolver != nil) {
+                    self.jsPromiseResolver!("since ok")
+                }
+            } catch {
+                if (self.jsPromiseRejecter != nil) {
+                    self.jsPromiseRejecter!("fail", "not ok", "error(")
+                }
+            }
+            
+          
+                       
+       }
+        
     }
     
     @objc

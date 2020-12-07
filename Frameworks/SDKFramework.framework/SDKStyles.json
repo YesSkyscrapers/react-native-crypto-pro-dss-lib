@@ -394,6 +394,7 @@
         "moreAboutOfOperation": "Подробнее об операции",
         "modalViewDescription": "Вы уверены, что хотите отправить запрос 'Отмена'?",
         "pdfPageNotLoaded": "Не удалось загрузить страницу",
+        "localPDFNotFound": "Не найдена локальная копия документа",
         "securityHeader": "Вы уверены, что хотите продолжить работу?",
         "securityNotInstalledLockScreen": "* экран блокировки не установлен",
         "securityDeviceIsRooted": "* устройство рутовано",
