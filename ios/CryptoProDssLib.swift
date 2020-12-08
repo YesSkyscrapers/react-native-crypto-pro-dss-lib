@@ -115,11 +115,14 @@ class CryptoProDssLib : UIViewController {
                 
                 
                 for _operation in operationsInfo?.operations ?? [] {
-                    if (operation?.transactionId == _operation.transactionId) {
+                  
+                    if (transactionId == _operation.transactionId) {
+                        print("yes")
                         operation = _operation;
                     }
                 }
-                
+                print("operation current")
+                print(operation)
                 sign.signMT(view: rootVC, kid: self.getLastUserKid()!, operation: operation, enableMultiSelection: false, inmediateSendConfirm: true, silent: false){ approveRequestMT,error  in
                     
                     if (self.jsPromiseResolver != nil) {
