@@ -108,7 +108,8 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
     @SuppressLint("RestrictedApi")
     @ReactMethod
     public void firstInitialization(Promise promise) {
-        CryptoProDss.getInstance().init(((FragmentActivity)this.reactContext.getCurrentActivity()),new InitCallbackHandler(){
+
+        CryptoProDss.getInstance().init(((FragmentActivity)this.reactContext.getCurrentActivity()),null,new InitCallbackHandler(){
             @Override
             public void onInit(Constants.CSPInitCode var1) {
                 promise.resolve((var1).getTitle());
