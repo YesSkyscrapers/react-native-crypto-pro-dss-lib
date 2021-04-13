@@ -235,7 +235,7 @@ class CryptoProDssLib : UIViewController {
                         }
                     }
                
-                    auth.kinit(view: rootVC, dssUser: user, registerInfo: registerInfo, keyProtectionType: SDKFramework.ProtectionType.BIOMETRIC, activationCode: nil, password: nil) { error in
+                    auth.kinit(view: rootVC, dssUser: user, registerInfo: registerInfo, keyProtectionType: SDKFramework.ProtectionType.PASSWORD, activationCode: nil, password: nil) { error in
                         print("kinit", error)
                         if error != nil {
                             if (self.jsPromiseRejecter != nil) {
