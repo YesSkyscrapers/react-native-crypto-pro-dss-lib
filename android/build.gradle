@@ -92,6 +92,7 @@ repositories {
     }
     google()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -110,6 +111,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:19.0.0' 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation "androidx.lifecycle:lifecycle-common-java8:2.1.0"
+    implementation "org.ini4j:ini4j:0.5.4"
 
 }
 

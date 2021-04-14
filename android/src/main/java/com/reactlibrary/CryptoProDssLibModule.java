@@ -24,6 +24,7 @@ import com.digt.sdk.interfaces.SdkQrCallback;
 import com.digt.sdk.policy.Policy;
 import com.digt.sdk.policy.models.CaParams;
 import com.digt.sdk.utils.Constants;
+
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -39,6 +40,7 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 class InitCallbackHandler implements SdkInitCallback {
@@ -76,7 +78,8 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
     @SuppressLint("RestrictedApi")
     @ReactMethod
     public void firstInitialization(Promise promise) {
-        CryptoProDss.getInstance().init(((FragmentActivity)this.reactContext.getCurrentActivity()),new InitCallbackHandler(){
+        CryptoProDss.initDSS(((FragmentActivity)this.reactContext.getCurrentActivity()));
+        CryptoProDss.getInstance().init(((FragmentActivity)this.reactContext.getCurrentActivity()),new HashMap<String,String[]>(),new InitCallbackHandler(){
             @Override
             public void onInit(Constants.CSPInitCode var1) {
                 promise.resolve((var1).getTitle());
