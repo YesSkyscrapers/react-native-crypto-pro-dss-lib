@@ -3,10 +3,12 @@ package com.reactlibrary;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import com.digt.sdk.*;
@@ -15,16 +17,27 @@ import com.digt.sdk.auth.models.DssUser;
 import com.digt.sdk.auth.models.RegisterInfo;
 import com.digt.sdk.cert.Cert;
 import com.digt.sdk.cert.models.Certificate;
+import com.digt.sdk.docs.Docs;
 import com.digt.sdk.interfaces.SdkCallback;
 import com.digt.sdk.interfaces.SdkCertificateListCallback;
 import com.digt.sdk.interfaces.SdkDssUserCallback;
+import com.digt.sdk.interfaces.SdkGetDocumentCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
+import com.digt.sdk.interfaces.SdkMtOperationWithSuspendCallback;
 import com.digt.sdk.interfaces.SdkPolicyCaParamsCallback;
+import com.digt.sdk.interfaces.SdkPolicyOperationHistoryCallback;
+import com.digt.sdk.interfaces.SdkPolicyOperationsInfoCallback;
 import com.digt.sdk.interfaces.SdkQrCallback;
 import com.digt.sdk.policy.Policy;
 import com.digt.sdk.policy.models.CaParams;
+import com.digt.sdk.policy.models.OperationHistory;
+import com.digt.sdk.sign.Sign;
+import com.digt.sdk.sign.models.ApproveRequestMT;
+import com.digt.sdk.sign.models.Operation;
+import com.digt.sdk.sign.models.OperationsInfo;
 import com.digt.sdk.utils.Constants;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -33,15 +46,30 @@ import com.facebook.react.bridge.ReactMarker;
 import com.facebook.react.bridge.ReactMarkerConstants;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.common.LifecycleState;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.reactlibrary.ReactBridgeTools.convertJsonToMap;
 
 class InitCallbackHandler implements SdkInitCallback {
     public void onInit(Constants.CSPInitCode var1) {
@@ -300,7 +328,6 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
                     }
                 }
 
-                Log.i("nasvyzi", _operation.toString());
 
                 sign.signMT(getReactApplicationContext().getCurrentActivity(), getLastUserKid(),_operation, false,true,false, new SdkMtOperationWithSuspendCallback() {
                     @Override
