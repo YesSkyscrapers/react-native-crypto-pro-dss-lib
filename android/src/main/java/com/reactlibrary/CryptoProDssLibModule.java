@@ -407,7 +407,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onOperationSuccessful(@NonNull String s) {
-                auth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.BIOMETRIC, null, null, new SdkDssUserCallback(){
+                auth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.PASSWORD, null, null, new SdkDssUserCallback(){
                     @Override
                     public void onOperationSuccessful() {
 
