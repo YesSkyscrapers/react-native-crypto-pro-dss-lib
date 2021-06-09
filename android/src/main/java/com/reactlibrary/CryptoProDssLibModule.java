@@ -51,6 +51,7 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.common.LifecycleState;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +69,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.reactlibrary.ReactBridgeTools.convertJsonToMap;
 
@@ -80,6 +82,7 @@ class InitCallbackHandler implements SdkInitCallback {
 public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+    private Auth lastAuth;
 
     @SuppressLint("RestrictedApi")
     public CryptoProDssLibModule(ReactApplicationContext reactContext) {
@@ -99,13 +102,13 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
     @SuppressLint("RestrictedApi")
     @ReactMethod
     public void onResumeActivity() {
-        //CryptoProDss.getInstance().registerActivityContext(this.reactContext);
+        CryptoProDss.getInstance().registerActivityContext(this.reactContext);
      }
 
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void firstInitialization(Promise promise) {
+    public void SdkInitialization(Promise promise) {
         CryptoProDss.initDSS(((FragmentActivity)this.reactContext.getCurrentActivity()));
         CryptoProDss.getInstance().init(((FragmentActivity)this.reactContext.getCurrentActivity()),new HashMap<String,String[]>(),new InitCallbackHandler(){
             @Override
@@ -144,11 +147,9 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         try {
             url = getUriFromAssets("SDKStyles.json");
             policy.setPersonalisation(url);
-            Log.i("nasvyzi", "updateStyles success");
+           promise.resolve("updateStyles success");
         } catch (IOException e) {
-            Log.i("nasvyzi", "updateStyles failed");
-            Log.i("nasvyzi", e.getLocalizedMessage());
-            e.printStackTrace();
+            promise.reject("cant load styles", "cant load styles");
         }
     }
 
@@ -242,34 +243,28 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void getOperations(Promise promise) {
+    public void getOperations(String kid,Promise promise) {
         Policy policy = new Policy();
-        policy.getOperations(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), null, null, new SdkPolicyOperationsInfoCallback() {
+        policy.getOperations(getReactApplicationContext().getCurrentActivity(), kid, null, null, new SdkPolicyOperationsInfoCallback() {
             @Override
             public void onOperationSuccessful(@NonNull OperationsInfo operationsInfo) {
-                Log.i("nasvyzi", "getOperations onOperationSuccessful");
                 List<WritableMap> listWithJson =  new ArrayList<>();
                 for (Operation operation : operationsInfo.getOperations())
                 {
                     try {
-
+                        Log.i("TEST", String.valueOf(operation.getCreatedAt()));
                         listWithJson.add(convertJsonToMap(new JSONObject(operation.toJsonString())));
                     } catch (JSONException e) {
-                        Log.i("nasvyzi", "wtf error");
-                        Log.i("nasvyzi", e.toString());
+                        promise.reject("json error", "json error");
                     }
                 }
                 WritableNativeArray array = Arguments.makeNativeArray((List)listWithJson);
-
-
                 promise.resolve(array);
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                Log.i("nasvyzi", "getOperations onOperationFailed");
-               // Log.i("nasvyzi", s);
-                promise.reject("cert getCerts - failed", s, throwable);
+                promise.reject("getOperations - failed", "getOperations - failed", throwable);
             }
         });
     }
@@ -307,54 +302,46 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void signMT(String transactionId, Promise promise) {
+    public void signMT(String transactionId, String kid, Promise promise) {
         Sign sign = new Sign();
 
         Policy policy = new Policy();
-        policy.getOperations(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), null, null, new SdkPolicyOperationsInfoCallback() {
+        policy.getOperations(getReactApplicationContext().getCurrentActivity(), kid, null, null, new SdkPolicyOperationsInfoCallback() {
             @Override
             public void onOperationSuccessful(@NonNull OperationsInfo operationsInfo) {
-                Log.i("nasvyzi", "getOperations onOperationSuccessful");
 
                 Operation _operation = null;
 
                 for (Operation operation : operationsInfo.getOperations())
                 {
-                    Log.i("nasvyzi", operation.getTransactionId() +" ili " + transactionId);
-
                     if (operation.getTransactionId().equals(transactionId)){
-                        Log.i("nasvyzi", "itrs trigger");
                         _operation = operation;
                     }
                 }
 
 
-                sign.signMT(getReactApplicationContext().getCurrentActivity(), getLastUserKid(),_operation, false,true,false, new SdkMtOperationWithSuspendCallback() {
+                Operation final_operation = _operation;
+                sign.signMT(getReactApplicationContext().getCurrentActivity(),kid,_operation, false,true,false, new SdkMtOperationWithSuspendCallback() {
                     @Override
                     public void onOperationSuccessful() {
-
-                        promise.resolve("all ok");
+                        promise.resolve("success");
                     }
 
                     @Override
                     public void onOperationSuspendedConfirm(@NonNull ApproveRequestMT approveRequestMT) {
-                        promise.resolve("suspended");
+                        promise.resolve("suspend");
                     }
 
                     @Override
                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                        Log.i("nasvyzi", "signMT onOperationFailed");
-                        Log.i("nasvyzi", s);
-                        promise.reject("signMT - failed", s, throwable);
+                        promise.reject("signMT - failed","signMT - failed", throwable);
                     }
                 });
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                Log.i("nasvyzi", "signMT getOperations onOperationFailed");
-                //Log.i("nasvyzi", s);
-                promise.reject("signMT - failed", s, throwable);
+                promise.reject("signMT - onOperationFailed - failed", "signMT - onOperationFailed - failed", throwable);
             }
         });
 
@@ -396,62 +383,95 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         return lastUser.getKid();
     }
 
+    public Map<String, String> convertDssUser(DssUser user){
+        Map<String, String> object = new HashMap<>();
+        object.put("kid", user.getKid());
+        object.put("uid", user.getUid());
+        return object;
+    }
+
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void initViaQr(String base64, Promise promise) {
+    public void getUsers(Promise promise) {
+        List<DssUser> authList = new ArrayList<DssUser>();
+        try {
 
-        DssUser dssUser = new DssUser();
-        RegisterInfo registerInfo = new RegisterInfo(null, null);
-        Auth auth = new Auth();
-        auth.scanQr(this.reactContext.getCurrentActivity(), base64, new SdkQrCallback(){
+            authList = Auth.getAuthList(getReactApplicationContext().getCurrentActivity());
+        } catch (Exception e) {
+            Log.i("nasvyzi", e.toString());
+            e.printStackTrace();
+        }
 
+        List<Map<String, String>> list = new ArrayList<>();
+
+        authList.forEach(dssUser -> {
+            list.add(convertDssUser(dssUser));
+        });
+
+        WritableNativeArray array = Arguments.makeNativeArray((List)list);
+        promise.resolve(array);
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void continueInitViaQr(String kid,Promise promise) {
+        lastAuth.confirm(getReactApplicationContext().getCurrentActivity(), kid, new SdkCallback() {
             @Override
-            public void onOperationSuccessful(@NonNull String s) {
-                auth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.PASSWORD, null, null, new SdkDssUserCallback(){
+            public void onOperationSuccessful() {
+
+                lastAuth.verify(getReactApplicationContext().getCurrentActivity(), kid, false, new SdkCallback() {
                     @Override
                     public void onOperationSuccessful() {
-
-
-                        auth.confirm(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkCallback() {
-                            @Override
-                            public void onOperationSuccessful() {
-
-                                auth.verify(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), false, new SdkCallback() {
-                                    @Override
-                                    public void onOperationSuccessful() {
-                                        promise.resolve("ok, since ok");
-                                    }
-
-                                    @Override
-                                    public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-
-                                        promise.reject("auth verify - failed", s, throwable);
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                                promise.reject("auth confirm - failed", s, throwable);
-                            }
-                        });
+                        promise.resolve("success");
                     }
 
                     @Override
                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                        promise.reject("kinit - failed", s,throwable);
+
+                        promise.reject("auth verify - failed", "auth verify - failed", throwable);
                     }
                 });
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                promise.reject("scanQr - failed", s,throwable);
+                promise.reject("auth confirm - failed", "auth confirm - failed", throwable);
+            }
+        });
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void initViaQr(String base64, Promise promise) {
+
+        DssUser dssUser = new DssUser();
+        RegisterInfo registerInfo = new RegisterInfo(null, null);
+        lastAuth = new Auth();
+        lastAuth.scanQr(this.reactContext.getCurrentActivity(), base64, new SdkQrCallback(){
+
+            @Override
+            public void onOperationSuccessful(@NonNull String s) {
+                lastAuth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.PASSWORD, null, null, new SdkDssUserCallback(){
+                    @Override
+                    public void onOperationSuccessful() {
+                        promise.resolve("success");
+                    }
+
+                    @Override
+                    public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                        promise.reject("kinit - failed", "kinit - failed",throwable);
+                    }
+                });
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                promise.reject("scanQr - failed", "scanQr - failed",throwable);
             }
 
             @Override
             public void onOperationCancelled() {
-                promise.reject("scanQr - cancelled", "scanQr - cancelled");
+                promise.resolve("cancel");
             }
         });
     }
@@ -464,7 +484,6 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         DssUser dssUser = new DssUser();
         RegisterInfo registerInfo = new RegisterInfo(null, null);
         Auth auth = new Auth();
-
 
 
         auth.verify(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), false, new SdkCallback() {

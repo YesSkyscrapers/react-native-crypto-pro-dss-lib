@@ -5,13 +5,20 @@
 @interface RCT_EXTERN_MODULE(CryptoProDssLib, NSObject)
 
 
-RCT_EXTERN_METHOD(firstInitialization:
+RCT_EXTERN_METHOD(SdkInitialization:
                   (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )
 
 RCT_EXTERN_METHOD(getOperations:
-                  (RCTPromiseResolveBlock)resolve
+                  (NSString *)kid
+                  withResolver: (RCTPromiseResolveBlock)resolve
+                  withRejecter: (RCTPromiseRejectBlock)reject
+)
+
+RCT_EXTERN_METHOD(continueInitViaQr:
+                  (NSString *)kid
+                  withResolver: (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )
 
@@ -23,11 +30,17 @@ RCT_EXTERN_METHOD(initViaQr:
 
 RCT_EXTERN_METHOD(signMT:
                   (NSString *)transactionId
+                  withKid: (NSString *)kid
                   withResolver: (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )
 
 RCT_EXTERN_METHOD(updateStyles:
+                  (RCTPromiseResolveBlock)resolve
+                  withRejecter: (RCTPromiseRejectBlock)reject
+)
+
+RCT_EXTERN_METHOD(getUsers:
                   (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )

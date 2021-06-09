@@ -1,12 +1,12 @@
 {
     "header": {
-        "backgroundColor": "#311b92ff",
+        "backgroundColor": "#3fcbffff",
         "rightIcon": "",
         "iconsTintColor": "#ffffffff",
         "title": {
             "color": "#ffffffff",
             "size": 17,
-            "font": ""
+            "font": "Tele2DisplaySerifWebSHORT-Bold.ttf"
         }
     },
     "body": {
@@ -15,20 +15,20 @@
             "cell": {
                 "backgroundColor": "#ffffffff",
                 "shadowStyle": {
-                    "shadowColor": "#000000ff",
-                    "shadowOffsetWidth": 0,
-                    "shadowOffsetHeight": 0,
-                    "shadowRadius": 0,
-                    "shadowOpacity": 0
+                    "shadowColor": "#0000002f",
+                    "shadowOffsetWidth": 2,
+                    "shadowOffsetHeight": 2,
+                    "shadowRadius": 4,
+                    "shadowOpacity": 1
                 },
                 "borderStyle": {
-                    "borderColor": "#191919FF",
-                    "borderWidth": 1.5
+                    "borderColor": "#e2e2e4ff",
+                    "borderWidth": 0
                 }
             },
-            "textColor": "#000000ff",
+            "textColor": "#1f2229ff",
             "moreImage": "",
-            "imageTintColor": "#000000ff",
+            "imageTintColor": "#1f2229ff",
             "subMenu": {
                 "backgroundColor": "#ffffffff",
                 "shadowStyle": {
@@ -36,7 +36,7 @@
                     "shadowOffsetWidth": 0,
                     "shadowOffsetHeight": 0,
                     "shadowRadius": 3,
-                    "shadowOpacity": 1
+                    "shadowOpacity": 0
                 },
                 "borderStyle": {
                     "borderColor": "#464646ff",
@@ -44,9 +44,9 @@
                 }
             },
             "subMenuText": {
-                "color": "#000000ff",
-                "size": 15,
-                "font": ""
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "buttonRaw": {
                 "backgroundColor": "#ffffffff",
@@ -58,58 +58,58 @@
                     "shadowOpacity": 0
                 },
                 "borderStyle": {
-                    "borderColor": "#dcdcdcff",
-                    "borderWidth": 0.3
+                    "borderColor": "#3fcbffff",
+                    "borderWidth": 1
                 },
                 "title": {
-                    "color": "#512da8ff",
-                    "size": 17,
-                    "font": ""
+                    "color": "#3fcbffff",
+                    "size": 13,
+                    "font": "Tele2TextSansSHORT-Regular.ttf"
                 }
             }
         },
         "modalView": {
             "backgroundColor": "#ffffffff",
             "text": {
-                "color": "#000000ff",
-                "size": 14,
-                "font": ""
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "saveChoiceText": {
-                "color": "#000000ff",
-                "size": 12,
-                "font": ""
+                "color": "#1f2229ff",
+                "size": 13,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
-            "switchOnTintColor": "#906ff2ff",
-            "switchThumbTintColor": "#4527a0ff",
+            "switchOnTintColor": "#bbbbbdff",
+            "switchThumbTintColor": "#3fcbffff",
             "shadowStyle": {
-                "shadowColor": "#000000ff",
+                "shadowColor": "#1f2229ff",
                 "shadowOffsetWidth": 0,
                 "shadowOffsetHeight": 0,
                 "shadowRadius": 0,
                 "shadowOpacity": 0
             },
             "borderStyle": {
-                "borderColor": "#000000ff",
+                "borderColor": "#1f2229ff",
                 "borderWidth": 0
             },
             "confirm": {
-                "backgroundColor": "#4527a0ff",
+                "backgroundColor": "#3fcbffff",
                 "shadowStyle": {
-                    "shadowColor": "#4527a000",
+                    "shadowColor": "#3fcbffff",
                     "shadowOffsetWidth": 0,
                     "shadowOffsetHeight": 0,
                     "shadowRadius": 0,
                     "shadowOpacity": 0
                 },
                 "borderStyle": {
-                    "borderColor": "#4527a0ff",
-                    "borderWidth": 0.3
+                    "borderColor": "#3fcbffff",
+                    "borderWidth": 1
                 },
                 "title": {
                     "color": "#ffffffff",
                     "size": 17,
-                    "font": ""
+                    "font": "Tele2TextSansSHORT-Regular.ttf"
                 }
             },
             "reject": {
@@ -122,13 +122,13 @@
                     "shadowOpacity": 0
                 },
                 "borderStyle": {
-                    "borderColor": "#dcdcdcFF",
-                    "borderWidth": 0.3
+                    "borderColor": "#3fcbffff",
+                    "borderWidth": 1
                 },
                 "title": {
-                    "color": "#512da8ff",
+                    "color": "#3fcbffff",
                     "size": 17,
-                    "font": ""
+                    "font": "Tele2TextSansSHORT-Regular.ttf"
                 }
             }
         },
@@ -136,33 +136,33 @@
             "cell": {
                 "backgroundColor": "#00000000",
                 "shadowStyle": {
-                    "shadowColor": "#000000ff",
+                    "shadowColor": "#1f2229ff",
                     "shadowOffsetWidth": 0,
                     "shadowOffsetHeight": 0,
                     "shadowRadius": 0,
                     "shadowOpacity": 0
                 },
                 "borderStyle": {
-                    "borderColor": "#000000ff",
+                    "borderColor": "#1f2229ff",
                     "borderWidth": 0
                 }
             },
             "title": {
-                "color": "#000000ff",
+                "color": "#8f9399ff",
                 "size": 15,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "subTitle": {
-                "color": "#000000ff",
-                "size": 15,
-                "font": ""
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             }
         },
         "textField": {
-            "backgroundColor": "#eeeeeeff",
-            "lineColor": "#512da8ff",
+            "backgroundColor": "#ffffffff",
+            "lineColor": "#c4c3c8ff",
             "shadowStyle": {
-                "shadowColor": "#000000ff",
+                "shadowColor": "#1f2229ff",
                 "shadowOffsetWidth": 0,
                 "shadowOffsetHeight": 0,
                 "shadowRadius": 0,
@@ -173,198 +173,198 @@
                 "borderWidth": 0
             },
             "title": {
-                "color": "#512da8ff",
+                "color": "#1f2229ff",
                 "size": 15,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Bold.ttf"
             },
             "text": {
-                "color": "#000000ff",
+                "color": "#1f2229ff",
                 "size": 17,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             }
         },
         "errorLabel": {
-            "color": "#c62828ff",
+            "color": "#1f2229ff",
             "size": 15,
-            "font": ""
+            "font": "Tele2TextSansSHORT-Regular.ttf"
         },
         "attemptsDescriptionLabel": {
             "color": "#512da8ff",
             "size": 15,
-            "font": ""
+            "font": "Tele2TextSansSHORT-Regular.ttf"
         },
         "hintLabel": {
-            "color": "#000000ff",
-            "size": 11,
-            "font": ""
+            "color": "#1f2229ff",
+            "size": 17,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
         },
         "operationInfoCell": {
             "cell": {
                 "backgroundColor": "#ffffffff",
                 "shadowStyle": {
-                    "shadowColor": "#000000ff",
+                    "shadowColor": "#0000000e",
                     "shadowOffsetWidth": 0,
-                    "shadowOffsetHeight": 0,
-                    "shadowRadius": 0,
+                    "shadowOffsetHeight": 1,
+                    "shadowRadius": 4,
                     "shadowOpacity": 0
                 },
                 "borderStyle": {
-                    "borderColor": "#000000ff",
+                    "borderColor": "#191919FF",
                     "borderWidth": 0
                 }
             },
             "header": {
-                "color": "#000000ff",
+                "color": "#1f2229ff",
                 "size": 20,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "title": {
-                "color": "#000000ff",
+                "color": "#1f2229ff",
                 "size": 17,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "subTitle": {
-                "color": "#000000ff",
-                "size": 15,
-                "font": ""
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             }
         },
         "biometric": {
             "shadowStyle": {
-                "shadowColor": "#000000ff",
+                "shadowColor": "#1f2229ff",
                 "shadowOffsetWidth": 0,
                 "shadowOffsetHeight": 0,
                 "shadowRadius": 0,
                 "shadowOpacity": 0
             },
             "borderStyle": {
-                "borderColor": "#000000ff",
+                "borderColor": "#1f2229ff",
                 "borderWidth": 0
             },
             "title": {
-                "color": "#bdbdbdff",
+                "color": "#1f2229ff",
                 "size": 17,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Bold.ttf"
             },
             "errorTitle": {
-                "color": "#512da8ff",
+                "color": "#ff0000ff",
                 "size": 17,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "description": {
-                "color": "#000000FF",
+                "color": "#1f2229ff",
                 "size": 15,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "errorDescription": {
-                "color": "#bdbdbdFF",
+                "color": "#1f2229ff",
                 "size": 15,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "cancelButtonTitle": {
-                "color": "#000000ff",
+                "color": "#1f2229ff",
                 "size": 15,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "fingerprintIcon": "",
-            "fingerprintIconColor": "",
+            "fingerprintIconColor": "#512da8ff",
             "errorIcon": "",
-            "errorIconColor": ""
+            "errorIconColor": "#512da8ff"
         },
         "qrReader": {
             "description": {
-                "color": "#FFFFFFFF",
-                "size": 15,
-                "font": ""
+                "color": "#ffffffff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
             "error": {
-                "color": "#FFFFFFFF",
+                "color": "#ff0000ff",
                 "size": 13,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             },
-            "galleryIcon": "",
-            "imageTintColor": "#FFFCFCFC"
+            "galleryIcon": "empty",
+            "imageTintColor": "#ffffffff"
         },
         "qrViewer": {
-            "color": "#000000ff",
-            "size": 16,
-            "font": ""
+            "color": "#1f2229ff",
+            "size": 17,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
         },
         "qrViewerKid": {
-            "color": "#000000ff",
+            "color": "#1f2229ff",
             "size": 13,
-            "font": ""
+            "font": "Tele2TextSansSHORT-Regular.ttf"
         }
     },
     "footer": {
         "backgroundColor": "#ffffffff",
         "shadowStyle": {
-            "shadowColor": "#000000ff",
+            "shadowColor": "#1f2229ff",
             "shadowOffsetWidth": 0,
             "shadowOffsetHeight": 0,
             "shadowRadius": 0,
             "shadowOpacity": 0
         },
         "borderStyle": {
-            "borderColor": "#000000ff",
-            "borderWidth": 1
+            "borderColor": "#1f2229ff",
+            "borderWidth": 0
         },
         "confirm": {
-            "backgroundColor": "#4527a0ff",
+            "backgroundColor": "#3fcbffff",
             "shadowStyle": {
-                "shadowColor": "#4527a000",
+                "shadowColor": "#3fcbffff",
                 "shadowOffsetWidth": 0,
                 "shadowOffsetHeight": 0,
                 "shadowRadius": 0,
                 "shadowOpacity": 0
             },
             "borderStyle": {
-                "borderColor": "#4527a0ff",
+                "borderColor": "#3fcbffff",
                 "borderWidth": 0.3
             },
             "title": {
                 "color": "#ffffffff",
                 "size": 17,
-                "font": "Stylish Marker"
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             }
         },
         "reject": {
             "backgroundColor": "#ffffffff",
             "shadowStyle": {
-                "shadowColor": "#bdbdbd00",
+                "shadowColor": "#3fcbffff",
                 "shadowOffsetWidth": 0,
                 "shadowOffsetHeight": 0,
                 "shadowRadius": 0,
                 "shadowOpacity": 0
             },
             "borderStyle": {
-                "borderColor": "#dcdcdcff",
-                "borderWidth": 0.3
+                "borderColor": "#3fcbffff",
+                "borderWidth": 1
             },
             "title": {
-                "color": "#512da8ff",
+                "color": "#3fcbffff",
                 "size": 17,
-                "font": ""
+                "font": "Tele2TextSansSHORT-Regular.ttf"
             }
         },
         "slider": {
             "minimumTrackTintColor": "#512da8ff",
-            "maximumTrackTintColor": "#bdbdbdff",
-            "thumbTintColor": "#512da8ff"
+            "maximumTrackTintColor": "#3fcbffff",
+            "thumbTintColor": "#ffffffff"
         },
         "pageCounter": {
-            "color": "#000000ff",
+            "color": "#1f2229ff",
             "size": 17,
-            "font": ""
+            "font": "Tele2TextSansSHORT-Regular.ttf"
         }
     },
     "dialogString": {
         "passwordHeader": "Ввод пароля",
-        "passwordHeaderWithConfirm": "Введите новый пароль",
-        "passwordTitle": "Пароль",
-        "passwordPlaceholder": "Введите пароль",
-        "passwordConfirmTitle": "Подтверждение пароля",
-        "passwordConfirmPlaceholder": "Подтвердите пароль",
+        "passwordHeaderWithConfirm": "Регистрация ЭЦП",
+        "passwordTitle": "Введите пароль",
+        "passwordPlaceholder": "",
+        "passwordConfirmTitle": "Повторите пароль",
+        "passwordConfirmPlaceholder": "",
         "passwordEasy": "Пароль должен быть не менее 6 символов",
         "passwordMedium": "Пароль должен быть не менее 8 символов и содержать строчные и прописные буквы",
         "passwordStrong": "Пароль должен быть не менее 8 символов и содержать строчные и прописные буквы, цифры",
@@ -374,11 +374,11 @@
         "passwordEasyHint": "Буквы a-z, A-Z, не менее 6 символов",
         "passwordMediumyHint": "Буквы a-z, A-Z, не менее 8 символов",
         "passwordStrongHint": "Цифры 0-9, буквы a-z, A-Z, не менее 8 символов",
-        "passwordTouchIDHint": "Введите пароль для использования в случае ошибки TouchID",
+        "passwordTouchIDHint": "",
         "numberOfAttempts": "Количество попыток: ",
         "numberOfAttemptsExceeded": "Вы превысили число попыток. Попробуйте снова через минуту",
-        "biometricAuthReason": "Аутентификация для доступа к персональным данным",
-        "biometricAuthReasonSave": "Сохранение ключа",
+        "biometricAuthReason": "Проверка биометрии",
+        "biometricAuthReasonSave": "Установка биометрии",
         "biometricErrorTitle": "Ошибка",
         "biometricDescription": "Прикоснитесь к сенсору",
         "biometricErrorDescription": "Не удалось распознать отпечаток. Прикоснитесь еще раз",
@@ -386,21 +386,22 @@
         "qrDescription": "Наведите камеру на QR-код",
         "settingsTitle": "Доступ к камере отключен",
         "settingsSubtitle": "Перейти в Настройки для разрешения доступа к камере?",
-        "operationHeader": "Содержимое операции",
+        "operationHeader": "Документы для подписания",
         "printPdfHeader": "Версия для печати (pdf)",
         "rawPdfHeader": "Оригинал документа (pdf)",
         "profileHeader": "Профиль пользователя",
+        "profileConfirm": "Подтвердить",
         "confirmedDeviceInfo": "Добавляемое устройство",
         "moreAboutOfOperation": "Подробнее об операции",
-        "modalViewDescription": "Вы уверены, что хотите отправить запрос 'Отмена'?",
+        "modalViewDescription": "Вы уверены, что хотите отменить подписание?",
         "pdfPageNotLoaded": "Не удалось загрузить страницу",
         "localPDFNotFound": "Не найдена локальная копия документа",
         "securityHeader": "Вы уверены, что хотите продолжить работу?",
-        "securityNotInstalledLockScreen": "* экран блокировки не установлен",
-        "securityDeviceIsRooted": "* устройство рутовано",
-        "securityKasperskyNotInstalled": "* касперский не установлен",
+        "securityNotInstalledLockScreen": "Экран блокировки не установлен.",
+        "securityDeviceIsRooted": "Устройство рутовано.",
+        "securityKasperskyNotInstalled": "Касперский не установлен.",
         "securityRememberChoice": "Запомнить выбор?",
-        "securityHasOverlayApps": "* список возможных шпионских приложений",
+        "securityHasOverlayApps": "Список возможных шпионских приложений:",
         "checkStatusHeader": "Проверка статуса устройства",
         "checkStatusDescription": "Отсканируйте QR-код первым устройством",
         "checkStatusKidIdentifier": "Идентификатор ключа"
@@ -412,9 +413,9 @@
         "checkStatus": 0,
         "newDevice": 0,
         "security": 0,
-        "signMT": 0,
+        "signMT": 3,
         "signMO": 0,
-        "signMTconfirmation": 0,
+        "signMTconfirmation": 3,
         "biometric": 0,
         "biometricFailed": 0,
         "cameraPermissionRequest": 0
