@@ -49,9 +49,7 @@ class CryptoProDssLib : UIViewController {
             let cpd = CryptoProDss();
             cpd._init(view: rootVC) { code in
                 
-                if (self.jsPromiseResolver != nil) {
-                    self.jsPromiseResolver!(String(format: "inited"))
-                }
+                resolve("inited")
             }
        }
     }
@@ -80,9 +78,7 @@ class CryptoProDssLib : UIViewController {
                     operations.append(try! DictionaryEncoder.encode(_operation))
                 }
                 
-                if (self.jsPromiseResolver != nil) {
-                    self.jsPromiseResolver!(operations)
-                }
+               resolve(operations)
             }
        }
         
@@ -120,9 +116,7 @@ class CryptoProDssLib : UIViewController {
                 
                 sign.signMT(view: rootVC, kid: kid, operation: operation, enableMultiSelection: false, inmediateSendConfirm: true, silent: false){ approveRequestMT,error  in
                     
-                    if (self.jsPromiseResolver != nil) {
-                        self.jsPromiseResolver!("success")
-                    }
+                    resolve("success");
                 }
             }      
        }
@@ -161,13 +155,9 @@ class CryptoProDssLib : UIViewController {
             do {
                 try policy.setPersonalisation(url: Bundle.main.url(forResource: "SDKStyles", withExtension:"json")!)
                 
-                if (self.jsPromiseResolver != nil) {
-                    self.jsPromiseResolver!("updateStyles success")
-                }
+                resolve("updateStyles success");
             } catch {
-                if (self.jsPromiseRejecter != nil) {
-                    self.jsPromiseRejecter!("cant load styles", "cant load styles", "cant load styles")
-                }
+                reject("cant load styles","cant load styles","cant load styles");
             }
        }
     }
@@ -196,9 +186,7 @@ class CryptoProDssLib : UIViewController {
                 list.append(DictionaryEncoder.convertDssUser(user: user));
             }
             
-            if (self.jsPromiseResolver != nil) {
-                self.jsPromiseResolver!(list);
-            }
+            resolve(list)
        }
     }
     
@@ -223,20 +211,16 @@ class CryptoProDssLib : UIViewController {
                     
                     self.lastAuth!.confirm(view: rootVC, kid: kid) { error in
                         if error != nil {
-                            if (self.jsPromiseRejecter != nil) {
-                                self.jsPromiseRejecter!("auth confirm - failed", "auth confirm - failed", error)
-                            }
-                        }
-                        
-                        self.lastAuth!.verify(view: rootVC, kid: kid, silent: false) { error in
-                            if error != nil {
-                                if (self.jsPromiseRejecter != nil) {
-                                    self.jsPromiseRejecter!("auth verify - failed", "auth verify - failed", error)
+                            reject("auth confirm - failed", error as! String, "auth confirm - failed")
+                    
+                        } else {
+                            self.lastAuth!.verify(view: rootVC, kid: kid, silent: false) { error in
+                                if error != nil {
+                                    reject("auth verify - failed", error as! String, "auth verify - failed")
+                             
+                                } else {
+                                    resolve(String(format: "success"))
                                 }
-                            }
-                            
-                            if (self.jsPromiseResolver != nil) {
-                                self.jsPromiseResolver!(String(format: "success"))
                             }
                         }
                     }
@@ -246,10 +230,7 @@ class CryptoProDssLib : UIViewController {
                     print("continueInitViaQr error")
                     print(error)
                     
-                    if (self.jsPromiseRejecter != nil) {
-                        self.jsPromiseRejecter!("continueInitViaQr - error", "continueInitViaQr - error", "continueInitViaQr - error")
-                    }
-                       
+                    reject("continueInitViaQr - error", error as! String, "continueInitViaQr - error")
                 }
             }
     }
@@ -257,6 +238,7 @@ class CryptoProDssLib : UIViewController {
     @objc
     func initViaQr(
         _ base64: String?,
+        withUseBiometric useBiometric: Bool,
         withResolver resolve: @escaping RCTPromiseResolveBlock,
         withRejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         
@@ -279,36 +261,21 @@ class CryptoProDssLib : UIViewController {
                 
                 self.lastAuth!.scanQR(view: rootVC, base64QR: base64)  { type, error in
                     if error != nil {
-//                        if (self.jsPromiseRejecter != nil) {
-//                            self.jsPromiseRejecter!("scanQr - failed", "scanQr - failed", "scanQr - failed")
-//                        }
                         reject("scanQr - failed", "scanQr - failed", "scanQr - failed")
-                    }
-               
-                    self.lastAuth!.kinit(view: rootVC, dssUser: user, registerInfo: registerInfo, keyProtectionType: SDKFramework.ProtectionType.PASSWORD, activationCode: nil, password: nil) { error in
-                        
-                        if error != nil {
-//                            if (self.jsPromiseRejecter != nil) {
-//                                self.jsPromiseRejecter!("kinit - failed", "kinit - failed", "kinit - failed")
-//                            }
-                            reject("kinit - failed", "kinit - failed", "kinit - failed")
+                    } else {
+                        self.lastAuth!.kinit(view: rootVC, dssUser: user, registerInfo: registerInfo, keyProtectionType: useBiometric ? SDKFramework.ProtectionType.BIOMETRIC : SDKFramework.ProtectionType.PASSWORD, activationCode: nil, password: nil) { error in
+                            if error != nil {
+                                reject("kinit - failed", error as! String, "kinit - failed")
+                            } else {
+                                resolve(String(format: "success"))
+                            }
                         }
-                        
-                            resolve(String(format: "success"))
-                        
-//                        if (self.jsPromiseResolver != nil) {
-//                            self.jsPromiseResolver!(String(format: "success"))
-//                        }
                     }
                 }
                 
             } catch {
                 print("scanQR error")
                 print(error)
-                
-//                if (self.jsPromiseRejecter != nil) {
-//                    self.jsPromiseRejecter!("scanQr - error", "scanQr - error", "scanQr - error")
-//                }
                 reject("scanQr - error", "scanQr - error", "scanQr - error")
                    
             }

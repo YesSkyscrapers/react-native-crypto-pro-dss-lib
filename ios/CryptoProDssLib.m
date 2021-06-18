@@ -24,6 +24,7 @@ RCT_EXTERN_METHOD(continueInitViaQr:
 
 RCT_EXTERN_METHOD(initViaQr:
                   (NSString *)base64
+                  withUseBiometric: (BOOL)useBiometric
                   withResolver: (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )
