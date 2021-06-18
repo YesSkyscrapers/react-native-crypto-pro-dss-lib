@@ -264,7 +264,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                promise.reject("getOperations - failed", "getOperations - failed", throwable);
+                promise.reject("getOperations - failed", s, throwable);
             }
         });
     }
@@ -334,14 +334,14 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
                     @Override
                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                        promise.reject("signMT - failed","signMT - failed", throwable);
+                        promise.reject("signMT - failed",s, throwable);
                     }
                 });
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                promise.reject("signMT - onOperationFailed - failed", "signMT - onOperationFailed - failed", throwable);
+                promise.reject("signMT - onOperationFailed - failed", s, throwable);
             }
         });
 
@@ -428,21 +428,21 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
                     @Override
                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
 
-                        promise.reject("auth verify - failed", "auth verify - failed", throwable);
+                        promise.reject("auth verify - failed", s, throwable);
                     }
                 });
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                promise.reject("auth confirm - failed", "auth confirm - failed", throwable);
+                promise.reject("auth confirm - failed", s, throwable);
             }
         });
     }
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void initViaQr(String base64, Promise promise) {
+    public void initViaQr(String base64, Boolean useBiometric, Promise promise) {
 
         DssUser dssUser = new DssUser();
         RegisterInfo registerInfo = new RegisterInfo(null, null);
@@ -451,7 +451,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onOperationSuccessful(@NonNull String s) {
-                lastAuth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo, Constants.KeyProtectionType.PASSWORD, null, null, new SdkDssUserCallback(){
+                lastAuth.kinit(getReactApplicationContext().getCurrentActivity(), dssUser, registerInfo,useBiometric ? Constants.KeyProtectionType.BIOMETRIC: Constants.KeyProtectionType.PASSWORD, null, null, new SdkDssUserCallback(){
                     @Override
                     public void onOperationSuccessful() {
                         promise.resolve("success");
@@ -459,18 +459,20 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
                     @Override
                     public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                        promise.reject("kinit - failed", "kinit - failed",throwable);
+                        promise.reject("kinit - failed", s,throwable);
                     }
                 });
             }
 
             @Override
             public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                promise.reject("scanQr - failed", "scanQr - failed",throwable);
+                Log.i("TEST", "scan onOperationFailed");
+                promise.reject("scanQr - failed", s,throwable);
             }
 
             @Override
             public void onOperationCancelled() {
+
                 promise.resolve("cancel");
             }
         });
