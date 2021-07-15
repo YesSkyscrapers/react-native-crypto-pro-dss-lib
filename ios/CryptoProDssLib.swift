@@ -31,6 +31,7 @@ class CryptoProDssLib : UIViewController {
     private var jsPromiseResolver: RCTPromiseResolveBlock? = nil;
     private var jsPromiseRejecter: RCTPromiseRejectBlock? = nil;
     private var lastAuth: Auth? = nil;
+    private var lastRequest: ApproveRequestMT? = nil;
     
     @objc
     func SdkInitialization(
@@ -114,11 +115,39 @@ class CryptoProDssLib : UIViewController {
                     }
                 }
                 
-                sign.signMT(view: rootVC, kid: kid, operation: operation, enableMultiSelection: false, inmediateSendConfirm: true, silent: false){ approveRequestMT,error  in
+                sign.signMT(view: rootVC, kid: kid, operation: operation, enableMultiSelection: false, inmediateSendConfirm: false, silent: false){ approveRequestMT,error  in
                     
-                    resolve("success");
+                    self.lastRequest = approveRequestMT;
+                    resolve(approveRequestMT);
                 }
-            }      
+            }
+       }
+        
+    }
+    
+    
+    @objc
+    func deferredRequest(
+        _ kid: String,
+        withResolver resolve: @escaping RCTPromiseResolveBlock,
+        withRejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        
+        jsPromiseResolver = resolve;
+        jsPromiseRejecter = reject;
+        
+        DispatchQueue.main.async {
+            guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
+                 reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
+                 return
+            }
+            
+            
+            let policy = Policy();
+            let sign = Sign();
+            
+            sign.deferredRequest(view: rootVC, kid: kid, approveRequest: self.lastRequest!){ error in
+                resolve("success");
+            }
        }
         
     }
