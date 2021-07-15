@@ -23,6 +23,7 @@ import com.digt.sdk.interfaces.SdkCertificateListCallback;
 import com.digt.sdk.interfaces.SdkDssUserCallback;
 import com.digt.sdk.interfaces.SdkGetDocumentCallback;
 import com.digt.sdk.interfaces.SdkInitCallback;
+import com.digt.sdk.interfaces.SdkMtOperationCallback;
 import com.digt.sdk.interfaces.SdkMtOperationWithSuspendCallback;
 import com.digt.sdk.interfaces.SdkPolicyCaParamsCallback;
 import com.digt.sdk.interfaces.SdkPolicyOperationHistoryCallback;
@@ -83,6 +84,9 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
     private Auth lastAuth;
+    private Operation lastOperation;
+    private ApproveRequestMT lastRequest;
+
 
     @SuppressLint("RestrictedApi")
     public CryptoProDssLibModule(ReactApplicationContext reactContext) {
@@ -321,7 +325,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
 
                 Operation final_operation = _operation;
-                sign.signMT(getReactApplicationContext().getCurrentActivity(),kid,_operation, false,true,false, new SdkMtOperationWithSuspendCallback() {
+                sign.signMT(getReactApplicationContext().getCurrentActivity(),kid,_operation, false,false,false, new SdkMtOperationWithSuspendCallback() {
                     @Override
                     public void onOperationSuccessful() {
                         promise.resolve("success");
@@ -329,7 +333,13 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
                     @Override
                     public void onOperationSuspendedConfirm(@NonNull ApproveRequestMT approveRequestMT) {
-                        promise.resolve("suspend");
+                        lastOperation = final_operation;
+                        lastRequest = approveRequestMT;
+                        try {
+                            promise.resolve(convertJsonToMap(new JSONObject(lastRequest.toJsonString())));
+                        } catch (JSONException e) {
+                            promise.resolve("JSON PARSE ERROR");
+                        }
                     }
 
                     @Override
@@ -345,6 +355,24 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
             }
         });
 
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void deferredRequest(String kid, Promise promise) {
+        Sign sign = new Sign();
+
+        sign.deferredRequest(getReactApplicationContext().getCurrentActivity(), kid, lastRequest, new SdkMtOperationCallback() {
+            @Override
+            public void onOperationSuccessful() {
+                promise.resolve("success");
+            }
+
+            @Override
+            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
+                promise.reject("deferredRequest - failed",s, throwable);
+            }
+        });
     }
 
     @SuppressLint("RestrictedApi")

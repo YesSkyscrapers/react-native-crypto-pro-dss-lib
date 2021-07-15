@@ -415,7 +415,7 @@
         "security": 0,
         "signMT": 3,
         "signMO": 0,
-        "signMTconfirmation": 3,
+        "signMTconfirmation": 0,
         "biometric": 0,
         "biometricFailed": 0,
         "cameraPermissionRequest": 0
