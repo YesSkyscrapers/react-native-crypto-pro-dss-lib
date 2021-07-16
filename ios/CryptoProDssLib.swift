@@ -71,15 +71,20 @@ class CryptoProDssLib : UIViewController {
             }
             
             let policy = Policy();
+            
             policy.getOperations(view: rootVC, kid: kid, type: nil, opId: nil){ operationsInfo,error  in
                 
-                var operations = [] as [Any];
-                
-                for _operation in operationsInfo?.operations ?? [] {
-                    operations.append(try! DictionaryEncoder.encode(_operation))
+                if (error != nil){
+                    reject(error?.localizedDescription,error?.localizedDescription,error?.localizedDescription);
+                } else {
+                    var operations = [] as [Any];
+                    
+                    for _operation in operationsInfo?.operations ?? [] {
+                        operations.append(try! DictionaryEncoder.encode(_operation))
+                    }
+                    
+                   resolve(operations)
                 }
-                
-               resolve(operations)
             }
        }
         
@@ -116,9 +121,12 @@ class CryptoProDssLib : UIViewController {
                 }
                 
                 sign.signMT(view: rootVC, kid: kid, operation: operation, enableMultiSelection: false, inmediateSendConfirm: false, silent: false){ approveRequestMT,error  in
-                    
+                  
                     self.lastRequest = approveRequestMT;
-                    resolve(approveRequestMT);
+                    
+                    let forReturn = try! DictionaryEncoder.encode(self.lastRequest);
+                    
+                    resolve(forReturn);
                 }
             }
        }
