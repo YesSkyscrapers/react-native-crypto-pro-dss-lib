@@ -32,6 +32,7 @@ class CryptoProDssLib : UIViewController {
     private var jsPromiseRejecter: RCTPromiseRejectBlock? = nil;
     private var lastAuth: Auth? = nil;
     private var lastRequest: ApproveRequestMT? = nil;
+    private var lastView: UIViewController? = nil;
     
     @objc
     func SdkInitialization(
@@ -123,6 +124,7 @@ class CryptoProDssLib : UIViewController {
                 sign.signMT(view: rootVC, kid: kid, operation: operation, enableMultiSelection: false, inmediateSendConfirm: false, silent: false){ approveRequestMT,error  in
                   
                     self.lastRequest = approveRequestMT;
+                    self.lastView = rootVC;
                     
                     let forReturn = try! DictionaryEncoder.encode(self.lastRequest);
                     
@@ -144,16 +146,13 @@ class CryptoProDssLib : UIViewController {
         jsPromiseRejecter = reject;
         
         DispatchQueue.main.async {
-            guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
-                 reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
-                 return
-            }
+            
             
             
             let policy = Policy();
             let sign = Sign();
             
-            sign.deferredRequest(view: rootVC, kid: kid, approveRequest: self.lastRequest!){ error in
+            sign.deferredRequest(view: self.lastView!, kid: kid, approveRequest: self.lastRequest!){ error in
                 resolve("success");
             }
        }
@@ -286,8 +285,7 @@ class CryptoProDssLib : UIViewController {
                 
             do {
                 self.lastAuth = try Auth()
-                let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
-
+                
                 guard let rootVC = UIApplication.shared.delegate?.window??.visibleViewController, (rootVC.navigationController != nil) else {
                      reject("E_INIT", "Error getting rootViewController", NSError(domain: "", code: 200, userInfo: nil))
                      return

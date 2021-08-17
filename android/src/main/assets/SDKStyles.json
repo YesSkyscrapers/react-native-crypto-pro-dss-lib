@@ -1,0 +1,423 @@
+{
+    "header": {
+        "backgroundColor": "#3fcbffff",
+        "rightIcon": "",
+        "iconsTintColor": "#ffffffff",
+        "title": {
+            "color": "#ffffffff",
+            "size": 17,
+            "font": "Tele2DisplaySerifWebSHORT-Bold.ttf"
+        }
+    },
+    "body": {
+        "backgroundColor": "#ffffffff",
+        "signCell": {
+            "cell": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#0000002f",
+                    "shadowOffsetWidth": 2,
+                    "shadowOffsetHeight": 2,
+                    "shadowRadius": 4,
+                    "shadowOpacity": 1
+                },
+                "borderStyle": {
+                    "borderColor": "#e2e2e4ff",
+                    "borderWidth": 0
+                }
+            },
+            "textColor": "#1f2229ff",
+            "moreImage": "",
+            "imageTintColor": "#1f2229ff",
+            "subMenu": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#434343ff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 3,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#464646ff",
+                    "borderWidth": 1
+                }
+            },
+            "subMenuText": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "buttonRaw": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#bdbdbd00",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#3fcbffff",
+                    "borderWidth": 1
+                },
+                "title": {
+                    "color": "#3fcbffff",
+                    "size": 13,
+                    "font": "Tele2TextSansSHORT-Regular.ttf"
+                }
+            }
+        },
+        "modalView": {
+            "backgroundColor": "#ffffffff",
+            "text": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "saveChoiceText": {
+                "color": "#1f2229ff",
+                "size": 13,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "switchOnTintColor": "#bbbbbdff",
+            "switchThumbTintColor": "#3fcbffff",
+            "shadowStyle": {
+                "shadowColor": "#1f2229ff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#1f2229ff",
+                "borderWidth": 0
+            },
+            "confirm": {
+                "backgroundColor": "#3fcbffff",
+                "shadowStyle": {
+                    "shadowColor": "#3fcbffff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#3fcbffff",
+                    "borderWidth": 1
+                },
+                "title": {
+                    "color": "#ffffffff",
+                    "size": 17,
+                    "font": "Tele2TextSansSHORT-Regular.ttf"
+                }
+            },
+            "reject": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#bdbdbd00",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#3fcbffff",
+                    "borderWidth": 1
+                },
+                "title": {
+                    "color": "#3fcbffff",
+                    "size": 17,
+                    "font": "Tele2TextSansSHORT-Regular.ttf"
+                }
+            }
+        },
+        "profileCell": {
+            "cell": {
+                "backgroundColor": "#00000000",
+                "shadowStyle": {
+                    "shadowColor": "#1f2229ff",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 0,
+                    "shadowRadius": 0,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#1f2229ff",
+                    "borderWidth": 0
+                }
+            },
+            "title": {
+                "color": "#8f9399ff",
+                "size": 15,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "subTitle": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            }
+        },
+        "textField": {
+            "backgroundColor": "#ffffffff",
+            "lineColor": "#c4c3c8ff",
+            "shadowStyle": {
+                "shadowColor": "#1f2229ff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#000000ff",
+                "borderWidth": 0
+            },
+            "title": {
+                "color": "#1f2229ff",
+                "size": 15,
+                "font": "Tele2TextSansSHORT-Bold.ttf"
+            },
+            "text": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            }
+        },
+        "errorLabel": {
+            "color": "#1f2229ff",
+            "size": 15,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
+        },
+        "attemptsDescriptionLabel": {
+            "color": "#512da8ff",
+            "size": 15,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
+        },
+        "hintLabel": {
+            "color": "#1f2229ff",
+            "size": 17,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
+        },
+        "operationInfoCell": {
+            "cell": {
+                "backgroundColor": "#ffffffff",
+                "shadowStyle": {
+                    "shadowColor": "#0000000e",
+                    "shadowOffsetWidth": 0,
+                    "shadowOffsetHeight": 1,
+                    "shadowRadius": 4,
+                    "shadowOpacity": 0
+                },
+                "borderStyle": {
+                    "borderColor": "#191919FF",
+                    "borderWidth": 0
+                }
+            },
+            "header": {
+                "color": "#1f2229ff",
+                "size": 20,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "title": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "subTitle": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            }
+        },
+        "biometric": {
+            "shadowStyle": {
+                "shadowColor": "#1f2229ff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#1f2229ff",
+                "borderWidth": 0
+            },
+            "title": {
+                "color": "#1f2229ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Bold.ttf"
+            },
+            "errorTitle": {
+                "color": "#ff0000ff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "description": {
+                "color": "#1f2229ff",
+                "size": 15,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "errorDescription": {
+                "color": "#1f2229ff",
+                "size": 15,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "cancelButtonTitle": {
+                "color": "#1f2229ff",
+                "size": 15,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "fingerprintIcon": "",
+            "fingerprintIconColor": "#512da8ff",
+            "errorIcon": "",
+            "errorIconColor": "#512da8ff"
+        },
+        "qrReader": {
+            "description": {
+                "color": "#ffffffff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "error": {
+                "color": "#ff0000ff",
+                "size": 13,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            },
+            "galleryIcon": "empty",
+            "imageTintColor": "#ffffffff"
+        },
+        "qrViewer": {
+            "color": "#1f2229ff",
+            "size": 17,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
+        },
+        "qrViewerKid": {
+            "color": "#1f2229ff",
+            "size": 13,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
+        }
+    },
+    "footer": {
+        "backgroundColor": "#ffffffff",
+        "shadowStyle": {
+            "shadowColor": "#1f2229ff",
+            "shadowOffsetWidth": 0,
+            "shadowOffsetHeight": 0,
+            "shadowRadius": 0,
+            "shadowOpacity": 0
+        },
+        "borderStyle": {
+            "borderColor": "#1f2229ff",
+            "borderWidth": 0
+        },
+        "confirm": {
+            "backgroundColor": "#3fcbffff",
+            "shadowStyle": {
+                "shadowColor": "#3fcbffff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#3fcbffff",
+                "borderWidth": 0.3
+            },
+            "title": {
+                "color": "#ffffffff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            }
+        },
+        "reject": {
+            "backgroundColor": "#ffffffff",
+            "shadowStyle": {
+                "shadowColor": "#3fcbffff",
+                "shadowOffsetWidth": 0,
+                "shadowOffsetHeight": 0,
+                "shadowRadius": 0,
+                "shadowOpacity": 0
+            },
+            "borderStyle": {
+                "borderColor": "#3fcbffff",
+                "borderWidth": 1
+            },
+            "title": {
+                "color": "#3fcbffff",
+                "size": 17,
+                "font": "Tele2TextSansSHORT-Regular.ttf"
+            }
+        },
+        "slider": {
+            "minimumTrackTintColor": "#512da8ff",
+            "maximumTrackTintColor": "#3fcbffff",
+            "thumbTintColor": "#ffffffff"
+        },
+        "pageCounter": {
+            "color": "#1f2229ff",
+            "size": 17,
+            "font": "Tele2TextSansSHORT-Regular.ttf"
+        }
+    },
+    "dialogString": {
+        "passwordHeader": "Ввод пароля",
+        "passwordHeaderWithConfirm": "Регистрация ЭЦП",
+        "passwordTitle": "Введите пароль",
+        "passwordPlaceholder": "",
+        "passwordConfirmTitle": "Повторите пароль",
+        "passwordConfirmPlaceholder": "",
+        "passwordEasy": "Пароль должен быть не менее 6 символов",
+        "passwordMedium": "Пароль должен быть не менее 8 символов и содержать строчные и прописные буквы",
+        "passwordStrong": "Пароль должен быть не менее 8 символов и содержать строчные и прописные буквы, цифры",
+        "passwordEmpty": "Поле не может быть пустым",
+        "passwordsNotMatch": "Пароли не совпадают",
+        "incorrectPassword": "Неверный пароль",
+        "passwordEasyHint": "Буквы a-z, A-Z, не менее 6 символов",
+        "passwordMediumyHint": "Буквы a-z, A-Z, не менее 8 символов",
+        "passwordStrongHint": "Цифры 0-9, буквы a-z, A-Z, не менее 8 символов",
+        "passwordTouchIDHint": "",
+        "numberOfAttempts": "Количество попыток",
+        "numberOfAttemptsExceeded": "Вы превысили число попыток. Попробуйте снова через минуту",
+        "biometricAuthReason": "Проверка биометрии",
+        "biometricAuthReasonSave": "Установка биометрии",
+        "biometricErrorTitle": "Ошибка",
+        "biometricDescription": "Прикоснитесь к сенсору",
+        "biometricErrorDescription": "Не удалось распознать отпечаток. Прикоснитесь еще раз",
+        "incorrectQRCode": "Некорректные данные в QR коде",
+        "qrDescription": "Наведите камеру на QR-код",
+        "settingsTitle": "Доступ к камере отключен",
+        "settingsSubtitle": "Перейти в Настройки для разрешения доступа к камере?",
+        "operationHeader": "Документы для подписания",
+        "printPdfHeader": "Версия для печати (pdf)",
+        "rawPdfHeader": "Оригинал документа (pdf)",
+        "profileHeader": "Профиль пользователя",
+        "profileConfirm": "Подтвердить",
+        "confirmedDeviceInfo": "Добавляемое устройство",
+        "moreAboutOfOperation": "Подробнее об операции",
+        "modalViewDescription": "Вы уверены, что хотите отменить подписание?",
+        "pdfPageNotLoaded": "Не удалось загрузить страницу",
+        "localPDFNotFound": "Не найдена локальная копия документа",
+        "securityHeader": "Вы уверены, что хотите продолжить работу?",
+        "securityNotInstalledLockScreen": "Экран блокировки не установлен.",
+        "securityDeviceIsRooted": "Устройство рутовано.",
+        "securityKasperskyNotInstalled": "Касперский не установлен.",
+        "securityRememberChoice": "Запомнить выбор?",
+        "securityHasOverlayApps": "Список возможных шпионских приложений:",
+        "checkStatusHeader": "Проверка статуса устройства",
+        "checkStatusDescription": "Отсканируйте QR-код первым устройством",
+        "checkStatusKidIdentifier": "Идентификатор ключа"
+    },
+    "viewButtonTextIndex": {
+        "password": 0,
+        "newPassword": 0,
+        "profile": 0,
+        "checkStatus": 0,
+        "newDevice": 0,
+        "security": 0,
+        "signMT": 3,
+        "signMO": 0,
+        "signMTconfirmation": 3,
+        "biometric": 0,
+        "biometricFailed": 0,
+        "cameraPermissionRequest": 0
+    }
+}
