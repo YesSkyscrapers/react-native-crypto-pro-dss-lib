@@ -121,14 +121,22 @@ class CryptoProDssLib : UIViewController {
                     }
                 }
                 
+                self.tryToSwitchHeader(true);
                 sign.signMT(view: rootVC, kid: kid, operation: operation, enableMultiSelection: false, inmediateSendConfirm: false, silent: false){ approveRequestMT,error  in
-                  
+                    
+                    self.tryToSwitchHeader( false);
+                    
                     self.lastRequest = approveRequestMT;
                     self.lastView = rootVC;
                     
-                    let forReturn = try! DictionaryEncoder.encode(self.lastRequest);
+                    if (error != nil){
+                        reject(error?.localizedDescription,error?.localizedDescription,error?.localizedDescription);
+                    } else {
+                        let forReturn = try! DictionaryEncoder.encode(self.lastRequest);
+                        
+                        resolve(forReturn);
+                    }
                     
-                    resolve(forReturn);
                 }
             }
        }
@@ -247,10 +255,12 @@ class CryptoProDssLib : UIViewController {
                     
                     self.lastAuth!.confirm(view: rootVC, kid: kid) { error in
                         if error != nil {
+                            self.tryToSwitchHeader(false);
                             reject("auth confirm - failed", error as! String, "auth confirm - failed")
                     
                         } else {
                             self.lastAuth!.verify(view: rootVC, kid: kid, silent: false) { error in
+                                self.tryToSwitchHeader(false);
                                 if error != nil {
                                     reject("auth verify - failed", error as! String, "auth verify - failed")
                              
@@ -269,6 +279,12 @@ class CryptoProDssLib : UIViewController {
                     reject("continueInitViaQr - error", error as! String, "continueInitViaQr - error")
                 }
             }
+    }
+    
+    func tryToSwitchHeader(
+        _ state: Bool
+    ) -> Void {
+        UIApplication.shared.delegate?.window??.tryToSwitchHeader(state)
     }
     
     @objc
@@ -298,8 +314,11 @@ class CryptoProDssLib : UIViewController {
                     if error != nil {
                         reject("scanQr - failed", "scanQr - failed", "scanQr - failed")
                     } else {
+                        self.tryToSwitchHeader(true);
                         self.lastAuth!.kinit(view: rootVC, dssUser: user, registerInfo: registerInfo, keyProtectionType: useBiometric ? SDKFramework.ProtectionType.BIOMETRIC : SDKFramework.ProtectionType.PASSWORD, activationCode: nil, password: nil) { error in
+                            
                             if error != nil {
+                                self.tryToSwitchHeader(false);
                                 reject("kinit - failed", error as! String, "kinit - failed")
                             } else {
                                 resolve(String(format: "success"))
@@ -321,6 +340,23 @@ class CryptoProDssLib : UIViewController {
 
 
 public extension UIWindow {
+    func tryToSwitchHeader(_ state: Bool) -> UIViewController? {
+        self.window?.makeKeyAndVisible()
+        let vc = self.rootViewController;
+        if let nc = vc as? UINavigationController {
+            nc.setNavigationBarHidden(!state, animated: false);
+            return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
+        } else if let tc = vc as? UITabBarController {
+            return UIWindow.getVisibleViewControllerFrom(tc.selectedViewController)
+        } else {
+            if let pvc = vc?.presentedViewController {
+                return UIWindow.getVisibleViewControllerFrom(pvc)
+            } else {
+                return vc
+            }
+        }
+    }
+    
     var visibleViewController: UIViewController? {
         self.window?.makeKeyAndVisible()
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
