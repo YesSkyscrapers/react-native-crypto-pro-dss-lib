@@ -446,7 +446,6 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         lastAuth.confirm(getReactApplicationContext().getCurrentActivity(), kid, new SdkCallback() {
             @Override
             public void onOperationSuccessful() {
-
                 lastAuth.verify(getReactApplicationContext().getCurrentActivity(), kid, false, new SdkCallback() {
                     @Override
                     public void onOperationSuccessful() {
