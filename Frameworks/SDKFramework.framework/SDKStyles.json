@@ -1,12 +1,12 @@
 {
     "header": {
-        "backgroundColor": "#311b92ff",
+        "backgroundColor": "#3fcbffff",
         "rightIcon": "",
         "iconsTintColor": "#ffffffff",
         "title": {
             "color": "#ffffffff",
             "size": 17,
-            "font": ""
+            "font": "Tele2DisplaySerifWebSHORT-Bold"
         }
     },
     "body": {
