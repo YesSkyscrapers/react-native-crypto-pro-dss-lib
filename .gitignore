@@ -40,3 +40,5 @@ local.properties
 buck-out/
 \.buckd/
 *.keystore
+
+/Frameworks/SDKFramework.framework/CpMyDssRootCerts.json
