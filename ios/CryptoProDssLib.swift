@@ -214,8 +214,12 @@ class CryptoProDssLib : UIViewController {
         
         jsPromiseResolver = resolve;
         jsPromiseRejecter = reject;
+            
         
         DispatchQueue.main.async {
+            
+            
+            self.tryToSwitchHeader(false);
             var authList = [] as [DSSUser];
             do {
                 authList = try Auth.getAuthList();
@@ -345,6 +349,17 @@ public extension UIWindow {
         let vc = self.rootViewController;
         if let nc = vc as? UINavigationController {
             nc.setNavigationBarHidden(!state, animated: false);
+            if #available(iOS 15, *) {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = UIColor(red: 63/255.0, green: 203/255.0, blue: 255.0/255.0, alpha: 1.0)
+                
+                appearance.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font: UIFont(name: "Tele2DisplaySerifWebSHORT-Bold", size: 17)!]
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            }
             return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
         } else if let tc = vc as? UITabBarController {
             return UIWindow.getVisibleViewControllerFrom(tc.selectedViewController)
