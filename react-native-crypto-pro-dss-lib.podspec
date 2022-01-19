@@ -9,14 +9,14 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   react-native-crypto-pro-dss-lib
                    DESC
-  s.homepage     = "https://github.com/github_account/react-native-crypto-pro-dss-lib"
+  s.homepage     = "https://github.com/digitalFrontend/react-native-crypto-pro-dss-lib"
   # brief license entry:
   s.license      = "MIT"
   # optional - use expanded license entry instead:
   # s.license    = { :type => "MIT", :file => "LICENSE" }
-  s.authors      = { "Your Name" => "yourname@email.com" }
+  s.authors      = { "digitalFrontend" => "digitalFrontend@tele2.ru" }
   s.platforms    = { :ios => "12.0" }
-  s.source       = { :git => "https://github.com/github_account/react-native-crypto-pro-dss-lib.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/digitalFrontend/react-native-crypto-pro-dss-lib.git", :tag => "#{s.version}" }
 
    s.pod_target_xcconfig = {
     'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"'

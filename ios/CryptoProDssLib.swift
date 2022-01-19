@@ -35,7 +35,7 @@ class CryptoProDssLib : UIViewController {
     private var lastView: UIViewController? = nil;
     
     @objc
-    func SdkInitialization(
+    func sdkInitialization(
         _ resolve: @escaping RCTPromiseResolveBlock,
         withRejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         
