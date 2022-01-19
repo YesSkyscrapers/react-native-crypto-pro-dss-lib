@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package ru.nasvyazi.cryptopro.dss.lib;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package ru.nasvyazi.cryptopro.dss.lib;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -72,7 +72,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.reactlibrary.ReactBridgeTools.convertJsonToMap;
+import static ru.nasvyazi.cryptopro.dss.lib.ReactBridgeTools.convertJsonToMap;
 
 class InitCallbackHandler implements SdkInitCallback {
     public void onInit(Constants.CSPInitCode var1) {
