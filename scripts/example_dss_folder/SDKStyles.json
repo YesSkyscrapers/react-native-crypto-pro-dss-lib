@@ -6,7 +6,7 @@
         "title": {
             "color": "#ffffffff",
             "size": 17,
-            "font": "Tele2DisplaySerifWebSHORT-Bold"
+            "font": ""
         }
     },
     "body": {
@@ -46,7 +46,7 @@
             "subMenuText": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "buttonRaw": {
                 "backgroundColor": "#ffffffff",
@@ -64,7 +64,7 @@
                 "title": {
                     "color": "#3fcbffff",
                     "size": 13,
-                    "font": "Tele2TextSansSHORT-Regular"
+                    "font": ""
                 }
             }
         },
@@ -73,12 +73,12 @@
             "text": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "saveChoiceText": {
                 "color": "#1f2229ff",
                 "size": 13,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "switchOnTintColor": "#bbbbbdff",
             "switchThumbTintColor": "#3fcbffff",
@@ -109,7 +109,7 @@
                 "title": {
                     "color": "#ffffffff",
                     "size": 17,
-                    "font": "Tele2TextSansSHORT-Regular"
+                    "font": ""
                 }
             },
             "reject": {
@@ -128,7 +128,7 @@
                 "title": {
                     "color": "#3fcbffff",
                     "size": 17,
-                    "font": "Tele2TextSansSHORT-Regular"
+                    "font": ""
                 }
             }
         },
@@ -150,12 +150,12 @@
             "title": {
                 "color": "#8f9399ff",
                 "size": 15,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "subTitle": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             }
         },
         "textField": {
@@ -175,28 +175,28 @@
             "title": {
                 "color": "#1f2229ff",
                 "size": 15,
-                "font": "Tele2TextSansSHORT-Bold"
+                "font": ""
             },
             "text": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             }
         },
         "errorLabel": {
             "color": "#1f2229ff",
             "size": 15,
-            "font": "Tele2TextSansSHORT-Regular"
+            "font": ""
         },
         "attemptsDescriptionLabel": {
             "color": "#512da8ff",
             "size": 15,
-            "font": "Tele2TextSansSHORT-Regular"
+            "font": ""
         },
         "hintLabel": {
             "color": "#1f2229ff",
             "size": 17,
-            "font": "Tele2TextSansSHORT-Regular"
+            "font": ""
         },
         "operationInfoCell": {
             "cell": {
@@ -216,17 +216,17 @@
             "header": {
                 "color": "#1f2229ff",
                 "size": 20,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "title": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "subTitle": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             }
         },
         "biometric": {
@@ -244,27 +244,27 @@
             "title": {
                 "color": "#1f2229ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Bold"
+                "font": ""
             },
             "errorTitle": {
                 "color": "#ff0000ff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "description": {
                 "color": "#1f2229ff",
                 "size": 15,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "errorDescription": {
                 "color": "#1f2229ff",
                 "size": 15,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "cancelButtonTitle": {
                 "color": "#1f2229ff",
                 "size": 15,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "fingerprintIcon": "",
             "fingerprintIconColor": "#512da8ff",
@@ -275,12 +275,12 @@
             "description": {
                 "color": "#ffffffff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "error": {
                 "color": "#ff0000ff",
                 "size": 13,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             },
             "galleryIcon": "empty",
             "imageTintColor": "#ffffffff"
@@ -288,12 +288,12 @@
         "qrViewer": {
             "color": "#1f2229ff",
             "size": 17,
-            "font": "Tele2TextSansSHORT-Regular"
+            "font": ""
         },
         "qrViewerKid": {
             "color": "#1f2229ff",
             "size": 13,
-            "font": "Tele2TextSansSHORT-Regular"
+            "font": ""
         }
     },
     "footer": {
@@ -325,7 +325,7 @@
             "title": {
                 "color": "#ffffffff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             }
         },
         "reject": {
@@ -344,7 +344,7 @@
             "title": {
                 "color": "#3fcbffff",
                 "size": 17,
-                "font": "Tele2TextSansSHORT-Regular"
+                "font": ""
             }
         },
         "slider": {
@@ -355,7 +355,7 @@
         "pageCounter": {
             "color": "#1f2229ff",
             "size": 17,
-            "font": "Tele2TextSansSHORT-Regular"
+            "font": ""
         }
     },
     "dialogString": {
@@ -375,7 +375,7 @@
         "passwordMediumyHint": "Буквы a-z, A-Z, не менее 8 символов",
         "passwordStrongHint": "Цифры 0-9, буквы a-z, A-Z, не менее 8 символов",
         "passwordTouchIDHint": "",
-        "numberOfAttempts": "Количество попыток: ",
+        "numberOfAttempts": "Количество попыток",
         "numberOfAttemptsExceeded": "Вы превысили число попыток. Попробуйте снова через минуту",
         "biometricAuthReason": "Проверка биометрии",
         "biometricAuthReasonSave": "Установка биометрии",
@@ -415,7 +415,7 @@
         "security": 0,
         "signMT": 3,
         "signMO": 0,
-        "signMTconfirmation": 0,
+        "signMTconfirmation": 3,
         "biometric": 0,
         "biometricFailed": 0,
         "cameraPermissionRequest": 0
