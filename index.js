@@ -10,6 +10,7 @@ let CryptoProDss = {
     getUsers: () => CryptoProDssLib.getUsers(),
     continueInitViaQr: (kid) => CryptoProDssLib.continueInitViaQr(kid),
     initViaQr: (qr, useBiometric) => CryptoProDssLib.initViaQr(qr, useBiometric),
+    deferredRequest: (kid) => CryptoProDssLib.deferredRequest(kid),
 }
 
 
