@@ -1,7 +1,7 @@
 {
   "name": "react-native-crypto-pro-dss-lib",
   "title": "React Native Crypto Pro Dss Lib",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "TODO",
   "main": "index.js",
   "files": [
@@ -12,12 +12,13 @@
     "react-native-crypto-pro-dss-lib.podspec"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node scripts/installDssAssets.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-crypto-pro-dss-lib.git",
-    "baseUrl": "https://github.com/github_account/react-native-crypto-pro-dss-lib"
+    "url": "git+https://github.com/digitalFrontend/react-native-crypto-pro-dss-lib.git",
+    "baseUrl": "https://github.com/digitalFrontend/react-native-crypto-pro-dss-lib"
   },
   "keywords": [
     "react-native"

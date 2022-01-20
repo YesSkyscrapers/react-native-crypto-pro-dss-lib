@@ -5,7 +5,7 @@
 @interface RCT_EXTERN_MODULE(CryptoProDssLib, NSObject)
 
 
-RCT_EXTERN_METHOD(SdkInitialization:
+RCT_EXTERN_METHOD(sdkInitialization:
                   (RCTPromiseResolveBlock)resolve
                   withRejecter: (RCTPromiseRejectBlock)reject
 )

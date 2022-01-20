@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package ru.nasvyazi.cryptopro.dss.lib;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -72,7 +72,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.reactlibrary.ReactBridgeTools.convertJsonToMap;
+import static ru.nasvyazi.cryptopro.dss.lib.ReactBridgeTools.convertJsonToMap;
 
 class InitCallbackHandler implements SdkInitCallback {
     public void onInit(Constants.CSPInitCode var1) {
@@ -112,7 +112,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void SdkInitialization(Promise promise) {
+    public void sdkInitialization(Promise promise) {
         CryptoProDss.initDSS(((FragmentActivity)this.reactContext.getCurrentActivity()));
         CryptoProDss.getInstance().init(((FragmentActivity)this.reactContext.getCurrentActivity()),new HashMap<String,String[]>(),new InitCallbackHandler(){
             @Override
@@ -159,91 +159,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
 
 
 
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void getDocuments(Promise promise) {
-        Policy policy = new Policy();
 
-                Log.i("nasvyzi", "getDocuments called");
-        policy.getCaParams(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkPolicyCaParamsCallback() {
-            @Override
-            public void onOperationSuccessful(@NonNull CaParams caParams) {
-                Log.i("nasvyzi", "getDocuments onOperationSuccessful");
-                Log.i("nasvyzi", caParams.toString());
-                promise.resolve(caParams);
-            }
-
-            @Override
-            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                Log.i("nasvyzi", "getDocuments onOperationFailed");
-                promise.reject("cert getDocuments - failed", s, throwable);
-            }
-        });
-
-    }
-
-
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void getCerts(Promise promise) {
-        Cert cert = new Cert();
-        cert.getCertList(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), new SdkCertificateListCallback() {
-            @Override
-            public String toString() {
-                return "$classname{}";
-            }
-
-            @Override
-            public void onOperationSuccessful(@NonNull List<Certificate> list) {
-                Log.i("nasvyzi", list.toString());
-                Log.i("nasvyzi", Boolean.toString(list instanceof List));
-                List<WritableMap> listWithJson =  new ArrayList<>();
-                for (Certificate cert : list)
-                {
-                    try {
-
-                        listWithJson.add(convertJsonToMap(new JSONObject(cert.toJsonString())));
-                    } catch (JSONException e) {
-                        Log.i("nasvyzi", "wtf error");
-                        Log.i("nasvyzi", e.toString());
-                    }
-                }
-                Log.i("nasvyzi", Boolean.toString(listWithJson instanceof List));
-                WritableNativeArray array = Arguments.makeNativeArray((List)listWithJson);
-                promise.resolve(array);
-            }
-
-            @Override
-            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-
-                promise.reject("cert getCerts - failed", s, throwable);
-            }
-        });
-    }
-
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void getHistoryOperations(Promise promise) {
-
-      //  Integer count = Integer.parseInt((_count));
-
-        Policy policy = new Policy();
-        policy.getHistoryOperations(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), null, null, new ArrayList<>(), new SdkPolicyOperationHistoryCallback() {
-            @Override
-            public void onOperationSuccessful(@NonNull OperationHistory operationHistory) {
-
-                Log.i("nasvyzi", operationHistory.toJsonString());
-                promise.resolve("since ok");
-            }
-
-            @Override
-            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                Log.i("nasvyzi", "getHistoryOperations onOperationFailed");
-                // Log.i("nasvyzi", s);
-                promise.reject("getHistoryOperations onOperationFailed - failed", s, throwable);
-            }
-        });
-    }
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
@@ -256,7 +172,6 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
                 for (Operation operation : operationsInfo.getOperations())
                 {
                     try {
-                        Log.i("TEST", String.valueOf(operation.getCreatedAt()));
                         listWithJson.add(convertJsonToMap(new JSONObject(operation.toJsonString())));
                     } catch (JSONException e) {
                         promise.reject("json error", "json error");
@@ -273,36 +188,6 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void downloadDocument(String id, Promise promise) {
-        Docs docs = new Docs();
-        docs.downloadDocument(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), id, new SdkGetDocumentCallback() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onOperationSuccessful(byte[] bytes) {
-
-                // readable string that encoded in base64, easy transfer as a string
-
-                // byte[] to base64 string
-                String s = Base64.getEncoder().encodeToString(bytes);
-
-                // base64 string to byte[]
-                byte[] decode = Base64.getDecoder().decode(s);
-
-
-                promise.resolve(Arguments.makeNativeArray(bytes));
-            }
-
-            @Override
-            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-
-                Log.i("nasvyzi", "downloadDocument onOperationFailed");
-               // Log.i("nasvyzi", s);
-                promise.reject("downloadDocument - failed", s, throwable);
-            }
-        });
-    }
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
@@ -375,27 +260,7 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void setCert(String base64, Promise promise) {
-        Cert cert = new Cert();
-        cert.setCert(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), base64, new SdkCallback() {
-            @Override
-            public void onOperationSuccessful() {
 
-                Log.i("nasvyzi", "setCert ok?");
-                promise.resolve("ok, since ok");
-            }
-
-            @Override
-            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-
-                Log.i("nasvyzi", "setCert failed");
-                Log.i("nasvyzi", s);
-                promise.reject("setCert failed", s, throwable);
-            }
-        });
-    }
 
     private String getLastUserKid(){
         List<DssUser> authList = new ArrayList<DssUser>();
@@ -505,65 +370,4 @@ public class CryptoProDssLibModule extends ReactContextBaseJavaModule {
         });
     }
 
-
-    @SuppressLint("RestrictedApi")
-    @ReactMethod
-    public void tryRelogin(Promise promise) {
-
-        DssUser dssUser = new DssUser();
-        RegisterInfo registerInfo = new RegisterInfo(null, null);
-        Auth auth = new Auth();
-
-
-        auth.verify(getReactApplicationContext().getCurrentActivity(), getLastUserKid(), false, new SdkCallback() {
-            @Override
-            public void onOperationSuccessful() {
-                Log.i("nasvyzi", "auth verify onOperationSuccessful");
-                promise.resolve("ok, since ok");
-            }
-
-            @Override
-            public void onOperationFailed(int i, @Nullable String s, @Nullable Throwable throwable) {
-                Log.i("nasvyzi", "auth verify onOperationFailed");
-                promise.reject("auth verify - failed", s, throwable);
-            }
-        });
-
-
-
-    }
-
-    private JSONObject convertJsonTo(ReadableMap readableMap) {
-        JSONObject object = new JSONObject();
-        ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
-        try {
-            while (iterator.hasNextKey()) {
-                String key = iterator.nextKey();
-                switch (readableMap.getType(key)) {
-                    case Null:
-                        object.put(key, JSONObject.NULL);
-                        break;
-                    case Boolean:
-                        object.put(key, readableMap.getBoolean(key));
-                        break;
-                    case Number:
-                        object.put(key, readableMap.getDouble(key));
-                        break;
-                    case String:
-                        object.put(key, readableMap.getString(key));
-                        break;
-                    case Map:
-                        object.put(key, convertJsonTo(readableMap.getMap(key)));
-                        break;
-                    case Array:
-                        object.put(key, convertJsonTo((ReadableMap) readableMap.getArray(key)));
-                        break;
-                }
-            }
-        }
-        catch (Exception ex) {
-            Log.d("nasvyzi", "convertMapToJson fail: " + ex);
-        }
-        return object;
-    }
 }

@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package ru.nasvyazi.cryptopro.dss.lib;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
